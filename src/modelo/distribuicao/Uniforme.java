@@ -1,13 +1,24 @@
 package modelo.distribuicao;
 
-public class Uniforme extends Distribuicao {
+import java.util.Random;
 
-	/* (non-Javadoc)
-	 * @see modelo.distribuicao.Distribuicao#geraVariavel()
-	 */
-	@Override
-	public float geraVariavel() {
-		// TODO Auto-generated method stub
-		return 0;
+public class Uniforme implements Distribuicao {
+	
+	private Random r = new Random();
+	private float a;
+	private float b;
+
+	public Uniforme(float a, float b) {
+		super();
+		this.a = a;
+		this.b = b;
 	}
+
+	public float geraVariavel() {
+
+		float random = r.nextFloat();
+
+		return a + ((b - a) * random);
+	}
+
 }

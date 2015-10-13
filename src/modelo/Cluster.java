@@ -15,6 +15,8 @@ public class Cluster {
 	private Cluster() {
 		c1 = new Celula("C1");
 		c2 = new Celula("C2");
+		c1.setOutraCelula(c2);
+		c2.setOutraCelula(c1);
 	}
 	
 	public static Cluster getInstance(){
@@ -26,7 +28,7 @@ public class Cluster {
 		return clusterInstance;
 		
 	}
-
+	
 	public Celula getC1() {
 		return c1;
 	}

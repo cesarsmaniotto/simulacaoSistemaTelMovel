@@ -2,23 +2,38 @@ package modelo.evento;
 
 import java.time.LocalTime;
 
+import modelo.Celula;
+
 public class EventoMudancaCanal extends Evento {
 
-	/**
-	 * @param tempoInicio
-	 * @param duracao
-	 */
-	public EventoMudancaCanal(LocalTime tempoInicio) {
+	private Celula cel;
+	private long duracaoChamada;
+
+	public EventoMudancaCanal(LocalTime tempoInicio, Celula cel, long duracaoChamada) {
 		super(tempoInicio);
-		// TODO Auto-generated constructor stub
+		this.cel = cel;
+		this.duracaoChamada = duracaoChamada;
+
 	}
 
-	/* (non-Javadoc)
-	 * @see modelo.evento.Evento#processaEvento()
-	 */
 	@Override
 	public void processaEvento() {
-		// TODO Auto-generated method stub
-		
+
+		if (estado.getOcupacaoCanal(cel.getId()) < cel.getNroCanais()) {
+
+			LocalTime inicioProxEvento = getTempoInicio().plusSeconds(duracaoChamada / 2);
+
+			EventoFimChamada fimChamada = new EventoFimChamada(inicioProxEvento, cel, duracaoChamada);
+
+			calEventos.adicionarEvento(fimChamada);
+
+		} else {
+			cel.incrementaLigacoesPerdidasFaltaDeCanais();
+
+			cel.adicionaDuracaoChamada(duracaoChamada / 2);
+		}
+
+		estado.decrementaOcupacaoCanal(cel.getOutraCelula().getId());
+
 	}
 }

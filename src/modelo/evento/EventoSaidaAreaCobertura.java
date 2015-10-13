@@ -4,29 +4,27 @@ import java.time.LocalTime;
 
 import modelo.Celula;
 
-public class EventoFimChamada extends Evento {
+public class EventoSaidaAreaCobertura extends Evento {
 
-	
 	private Celula cel;
 	private long duracaoChamada;
 	
-	public EventoFimChamada(LocalTime tempoInicio, Celula cel,long duracaoChamada) {
+	public EventoSaidaAreaCobertura(LocalTime tempoInicio, Celula cel, long duracaoChamada) {
 		super(tempoInicio);
 		this.cel = cel;
 		this.duracaoChamada = duracaoChamada;
-		
 	}
-
 	
 	@Override
 	public void processaEvento() {
 		
+		cel.incrementaLigacoesPerdidasForaDeArea();
+		
+		cel.adicionaDuracaoChamada(duracaoChamada / 2);
 		
 		estado.decrementaOcupacaoCanal(cel.getId());
 		
-		cel.incrementaLigacoesCompletadas();
 		
-		cel.adicionaDuracaoChamada(duracaoChamada);
-
 	}
+
 }

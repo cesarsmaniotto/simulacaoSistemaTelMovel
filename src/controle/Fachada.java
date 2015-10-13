@@ -4,7 +4,9 @@ import java.util.Date;
 
 import modelo.distribuicao.Distribuicao;
 
-public class Controle {
+public class Fachada {
+	
+	
 
   public void definirPercentuaisFreqChamadas(int idCelula,  float percentual) {
   }

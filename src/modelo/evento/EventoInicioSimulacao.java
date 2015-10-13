@@ -2,6 +2,8 @@ package modelo.evento;
 
 import java.time.LocalTime;
 
+import modelo.Cluster;
+
 public class EventoInicioSimulacao extends Evento {
 
 	/**
@@ -13,12 +15,19 @@ public class EventoInicioSimulacao extends Evento {
 		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see modelo.evento.Evento#processaEvento()
 	 */
 	@Override
 	public void processaEvento() {
-		// TODO Auto-generated method stub
+		EventoInicioChamada inicioC1 = new EventoInicioChamada(getTempoInicio(), Cluster.getInstance().getC1());
+
+		EventoInicioChamada inicioC2 = new EventoInicioChamada(getTempoInicio(), Cluster.getInstance().getC2());
 		
+		calEventos.adicionarEvento(inicioC1);
+		calEventos.adicionarEvento(inicioC2);
+
 	}
 }

@@ -1,7 +1,9 @@
 package modelo.distribuicao;
-public abstract class Distribuicao {
-	
-	public abstract float geraVariavel();
 
+
+public interface Distribuicao {
+	
+	
+	public float geraVariavel();
     
 }

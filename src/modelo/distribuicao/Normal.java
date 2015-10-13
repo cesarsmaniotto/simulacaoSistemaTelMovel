@@ -1,13 +1,12 @@
 package modelo.distribuicao;
 
-public class Normal extends Distribuicao {
+public class Normal implements Distribuicao {
 
-	/* (non-Javadoc)
-	 * @see modelo.distribuicao.Distribuicao#geraVariavel()
-	 */
 	@Override
 	public float geraVariavel() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 }
