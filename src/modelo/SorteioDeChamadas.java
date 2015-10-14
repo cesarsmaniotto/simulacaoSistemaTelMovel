@@ -1,7 +1,5 @@
 package modelo;
 
-import modelo.distribuicao.Distribuicao;
-
 public class SorteioDeChamadas {
 
 	private float percentualComecaTermina;

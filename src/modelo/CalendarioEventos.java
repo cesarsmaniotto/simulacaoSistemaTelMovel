@@ -5,27 +5,22 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 import modelo.evento.Evento;
-import modelo.evento.EventoFimSimulacao;
-import modelo.evento.EventoInicioSimulacao;
+import modelo.evento.EventoInicioChamada;
 
-public class CalendarioEventos {
+public class CalendarioEventos extends Thread{
 
 	private LocalTime tempoMaximoSimulacao;
-	private ArrayList<Evento> listaEventosFinalizados;
+	private ArrayList<Estado> estadosDaSimulacao;
 	private TreeSet<Evento> listaProximosEventos;
-	private static CalendarioEventos calendarioEventosInstance;
 
-	private CalendarioEventos() {
-		this.listaEventosFinalizados = new ArrayList<Evento>();
-		this.listaProximosEventos = new TreeSet<Evento>();
+	public CalendarioEventos(LocalTime tempoMaximoSimulacao) {
+		this.estadosDaSimulacao = new ArrayList<>();
+		this.listaProximosEventos = new TreeSet<>();
+		this.tempoMaximoSimulacao = tempoMaximoSimulacao;
 	}
-
-	public static CalendarioEventos getInstance() {
-		if (calendarioEventosInstance == null) {
-			calendarioEventosInstance = new CalendarioEventos();
-		}
-
-		return calendarioEventosInstance;
+	
+	public void run(){
+		iniciaSimulacao();
 	}
 
 	public void iniciaSimulacao() {
@@ -39,15 +34,13 @@ public class CalendarioEventos {
 
 			Evento ev = listaProximosEventos.first();
 
-			if (ev instanceof EventoFimSimulacao) {
+			if (ev.getTempoInicio().isAfter(tempoMaximoSimulacao)) {
 				fimSimulacao = true;
 			} else {
-				
-				ev.setEstado(new Estado(estado));				
-				ev.processaEvento();
-				estado = ev.getEstado();
 
-				listaEventosFinalizados.add(ev);
+				estado = ev.processaEvento(this, estado);
+
+				estadosDaSimulacao.add(estado);
 
 				listaProximosEventos.remove(ev);
 			}
@@ -57,24 +50,18 @@ public class CalendarioEventos {
 	}
 
 	private void preparaInicioSimulacao() {
-		
-		LocalTime inicializaRelogio = LocalTime.of(0, 0, 0);
-		
-		EventoInicioSimulacao inicioSimulacao = new EventoInicioSimulacao(inicializaRelogio);
-		listaProximosEventos.add(inicioSimulacao);
 
-		EventoFimSimulacao fimSimulacao = new EventoFimSimulacao(tempoMaximoSimulacao);
-		listaProximosEventos.add(fimSimulacao);
+		LocalTime relogioInicial = LocalTime.of(0, 0, 0);
+			
+		this.adicionarEvento(new EventoInicioChamada(relogioInicial, Cluster.getInstance().getC1()));
+		this.adicionarEvento(new EventoInicioChamada(relogioInicial, Cluster.getInstance().getC2()));
+		
 	}
 
-	public void setTempoMaximoSimulacao(LocalTime tempoMaximoSimulacao) {
-		this.tempoMaximoSimulacao = tempoMaximoSimulacao;
-	}
-	
-	public void adicionarEvento(Evento ev){
-		
+	public void adicionarEvento(Evento ev) {
+
 		listaProximosEventos.add(ev);
-		
+
 	}
 
 }

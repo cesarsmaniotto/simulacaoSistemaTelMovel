@@ -2,7 +2,9 @@ package modelo.evento;
 
 import java.time.LocalTime;
 
+import modelo.CalendarioEventos;
 import modelo.Celula;
+import modelo.Estado;
 
 public class EventoMudancaCanal extends Evento {
 
@@ -17,9 +19,9 @@ public class EventoMudancaCanal extends Evento {
 	}
 
 	@Override
-	public void processaEvento() {
+	public Estado processaEvento(CalendarioEventos calEventos, Estado estadoAtual) {
 
-		if (estado.getOcupacaoCanal(cel.getId()) < cel.getNroCanais()) {
+		if (estadoAtual.getOcupacaoCanal(cel.getId()) < cel.getNroCanais()) {
 
 			LocalTime inicioProxEvento = getTempoInicio().plusSeconds(duracaoChamada / 2);
 
@@ -33,7 +35,7 @@ public class EventoMudancaCanal extends Evento {
 			cel.adicionaDuracaoChamada(duracaoChamada / 2);
 		}
 
-		estado.decrementaOcupacaoCanal(cel.getOutraCelula().getId());
-
+		estadoAtual.decrementaOcupacaoCanal(cel.getOutraCelula().getId());
+		return estadoAtual;
 	}
 }

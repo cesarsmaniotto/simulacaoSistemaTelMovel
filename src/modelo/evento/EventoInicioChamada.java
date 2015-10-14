@@ -2,8 +2,10 @@ package modelo.evento;
 
 import java.time.LocalTime;
 
+import modelo.CalendarioEventos;
 import modelo.Celula;
 import modelo.Chamada;
+import modelo.Estado;
 
 public class EventoInicioChamada extends Evento {
 
@@ -20,52 +22,49 @@ public class EventoInicioChamada extends Evento {
 	}
 
 	@Override
-	public void processaEvento() {
+	public Estado processaEvento(CalendarioEventos calEventos, Estado estadoAtual) {
 
 		Chamada chamada = cel.geraNovaChamada();
 
-		if (estado.getOcupacaoCanal(cel.getId()) < cel.getNroCanais()) {
-				
-				
+		if (estadoAtual.getOcupacaoCanal(cel.getId()) < cel.getNroCanais()) {
+
+			Evento proximoEvento = null;
+
 			switch (chamada.getTipo()) {
 			case COMECA_E_TERMINA_NA_MESMA_CELULA:
-				
-				EventoFimChamada fimChamada = new EventoFimChamada(getTempoInicio().plusSeconds(chamada.getTempoDuracao()),
-						cel,chamada.getTempoDuracao());
 
-				calEventos.adicionarEvento(fimChamada);
-				
+				proximoEvento = new EventoFimChamada(getTempoInicio().plusSeconds(chamada.getTempoDuracao()), cel,
+						chamada.getTempoDuracao());
 				break;
 
 			case TERMINA_EM_UMA_CELULA_DIFERENTE:
 
-				EventoMudancaCanal mudancaCanal = new EventoMudancaCanal(getTempoInicio().plusSeconds(chamada.getTempoDuracao() / 2), cel.getOutraCelula(),chamada.getTempoDuracao());
-
-				calEventos.adicionarEvento(mudancaCanal);
-				
+				proximoEvento = new EventoMudancaCanal(getTempoInicio().plusSeconds(chamada.getTempoDuracao() / 2),
+						cel.getOutraCelula(), chamada.getTempoDuracao());
 				break;
-				
+
 			case TERMINA_FORA_DA_AREA_DE_COBERTURA:
-				
-				EventoMudancaCanal saidaArea = new EventoMudancaCanal(getTempoInicio().plusSeconds(chamada.getTempoDuracao() / 2), cel,chamada.getTempoDuracao());
 
-				calEventos.adicionarEvento(saidaArea);
-				
+				proximoEvento = new EventoMudancaCanal(getTempoInicio().plusSeconds(chamada.getTempoDuracao() / 2), cel,
+						chamada.getTempoDuracao());
 				break;
-			}	
 
-			estado.incrementaOcupacaoCanal(cel.getId());
+			}
 
-			EventoInicioChamada novaChamada = new EventoInicioChamada(
-					this.tempoInicio.plusSeconds(cel.tempoParaNovaChamada()), cel);
+			calEventos.adicionarEvento(proximoEvento);
 
-			calEventos.adicionarEvento(novaChamada);
+			estadoAtual.incrementaOcupacaoCanal(cel.getId());
+
+			calEventos.adicionarEvento(
+					new EventoInicioChamada(this.tempoInicio.plusSeconds(cel.tempoParaNovaChamada()), cel));
 
 		} else {
 
 			cel.incrementaLigacoesPerdidasFaltaDeCanais();
 
 		}
+		
+		return estadoAtual;
 
 	}
 }

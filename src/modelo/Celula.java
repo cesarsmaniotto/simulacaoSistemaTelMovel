@@ -2,8 +2,6 @@ package modelo;
 
 import java.util.ArrayList;
 
-import modelo.distribuicao.Distribuicao;
-
 public class Celula {
 
 	private int nroCanais;
