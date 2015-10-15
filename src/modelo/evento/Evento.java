@@ -8,6 +8,11 @@ import modelo.Estado;
 public abstract class Evento implements Comparable<Evento> {
 
 	protected LocalTime tempoInicio;
+	
+	public Evento(LocalTime tempoInicio) {
+
+ 		this.tempoInicio = tempoInicio;
+ 	}
 
 	public LocalTime getTempoInicio() {
 		return tempoInicio;

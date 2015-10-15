@@ -13,7 +13,7 @@ public class EventoFimChamada extends Evento {
 
 	public EventoFimChamada(LocalTime tempoInicio, Celula cel,
 			long duracaoChamada) {
-		super();
+		super(tempoInicio);
 		this.cel = cel;
 		this.duracaoChamada = duracaoChamada;
 

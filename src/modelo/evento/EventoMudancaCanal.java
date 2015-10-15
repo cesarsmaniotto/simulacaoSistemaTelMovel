@@ -12,7 +12,7 @@ public class EventoMudancaCanal extends Evento {
 	private long duracaoChamada;
 
 	public EventoMudancaCanal(LocalTime tempoInicio, Celula cel, long duracaoChamada) {
-		super();
+		super(tempoInicio);
 		this.cel = cel;
 		this.duracaoChamada = duracaoChamada;
 

@@ -16,7 +16,7 @@ public class EventoInicioChamada extends Evento {
 	private Celula cel;
 
 	public EventoInicioChamada(LocalTime tempoInicio, Celula cel) {
-		super();
+		super(tempoInicio);
 		this.cel = cel;
 
 	}

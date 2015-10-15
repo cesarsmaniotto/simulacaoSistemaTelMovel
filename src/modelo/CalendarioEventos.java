@@ -5,21 +5,23 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 import modelo.evento.Evento;
+import modelo.evento.EventoFimSimulacao;
 import modelo.evento.EventoInicioChamada;
+import modelo.evento.EventoInicioSimulacao;
 
-public class CalendarioEventos extends Thread{
+public class CalendarioEventos extends Thread {
 
 	private LocalTime tempoMaximoSimulacao;
-	private ArrayList<Estado> estadosDaSimulacao;
+	private HistoricoEstados historico;
 	private TreeSet<Evento> listaProximosEventos;
 
 	public CalendarioEventos(LocalTime tempoMaximoSimulacao) {
-		this.estadosDaSimulacao = new ArrayList<>();
+		this.historico = new HistoricoEstados();
 		this.listaProximosEventos = new TreeSet<>();
 		this.tempoMaximoSimulacao = tempoMaximoSimulacao;
 	}
-	
-	public void run(){
+
+	public void run() {
 		iniciaSimulacao();
 	}
 
@@ -34,16 +36,15 @@ public class CalendarioEventos extends Thread{
 
 			Evento ev = listaProximosEventos.first();
 
-			if (ev.getTempoInicio().isAfter(tempoMaximoSimulacao)) {
+			if (ev instanceof EventoFimSimulacao) {
 				fimSimulacao = true;
-			} else {
-
-				estado = ev.processaEvento(this, estado);
-
-				estadosDaSimulacao.add(estado);
-
-				listaProximosEventos.remove(ev);
 			}
+
+			estado = ev.processaEvento(this, estado);
+
+			historico.adicionarEstado(estado);
+
+			listaProximosEventos.remove(ev);
 
 		}
 
@@ -52,10 +53,9 @@ public class CalendarioEventos extends Thread{
 	private void preparaInicioSimulacao() {
 
 		LocalTime relogioInicial = LocalTime.of(0, 0, 0);
-			
-		this.adicionarEvento(new EventoInicioChamada(relogioInicial, Cluster.getInstance().getC1()));
-		this.adicionarEvento(new EventoInicioChamada(relogioInicial, Cluster.getInstance().getC2()));
-		
+		this.adicionarEvento(new EventoInicioSimulacao(relogioInicial));
+		this.adicionarEvento(new EventoFimSimulacao(tempoMaximoSimulacao));
+
 	}
 
 	public void adicionarEvento(Evento ev) {

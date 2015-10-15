@@ -12,7 +12,7 @@ public class EventoSaidaAreaCobertura extends Evento {
 	private long duracaoChamada;
 	
 	public EventoSaidaAreaCobertura(LocalTime tempoInicio, Celula cel, long duracaoChamada) {
-		super();
+		super(tempoInicio);
 		this.cel = cel;
 		this.duracaoChamada = duracaoChamada;
 	}
