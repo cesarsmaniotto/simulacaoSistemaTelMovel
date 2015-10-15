@@ -1,9 +1,7 @@
 package modelo.distribuicao;
 
-
 public interface Distribuicao {
-	
-	
-	public float geraVariavel();
-    
+
+	public double geraValor();
+
 }

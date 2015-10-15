@@ -9,11 +9,6 @@ public abstract class Evento implements Comparable<Evento> {
 
 	protected LocalTime tempoInicio;
 
-	public Evento(LocalTime tempoInicio) {
-		super();
-		this.tempoInicio = tempoInicio;
-	}
-
 	public LocalTime getTempoInicio() {
 		return tempoInicio;
 	}

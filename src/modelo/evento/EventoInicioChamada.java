@@ -16,7 +16,7 @@ public class EventoInicioChamada extends Evento {
 	private Celula cel;
 
 	public EventoInicioChamada(LocalTime tempoInicio, Celula cel) {
-		super(tempoInicio);
+		super();
 		this.cel = cel;
 
 	}
@@ -32,7 +32,7 @@ public class EventoInicioChamada extends Evento {
 
 			switch (chamada.getTipo()) {
 			case COMECA_E_TERMINA_NA_MESMA_CELULA:
-
+				
 				proximoEvento = new EventoFimChamada(getTempoInicio().plusSeconds(chamada.getTempoDuracao()), cel,
 						chamada.getTempoDuracao());
 				break;
@@ -64,7 +64,7 @@ public class EventoInicioChamada extends Evento {
 
 		}
 		
-		return estadoAtual;
+		return new Estado(estadoAtual);
 
 	}
 }

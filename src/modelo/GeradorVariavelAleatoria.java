@@ -10,8 +10,8 @@ public class GeradorVariavelAleatoria {
 		this.distribuicao = distribuicao;
 	}
 
-	public float gera() {
-		return distribuicao.geraVariavel();
+	public double gera() {
+		return distribuicao.geraValor();
 	}
 
 }

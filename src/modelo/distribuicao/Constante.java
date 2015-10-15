@@ -1,10 +1,16 @@
 package modelo.distribuicao;
 public class Constante implements Distribuicao {
 
+	private double valor;
+	
+	public Constante(double valor) {
+		super();
+		this.valor = valor;
+	}
+
 	@Override
-	public float geraVariavel() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double geraValor() {
+		return valor;
 	}
 
 

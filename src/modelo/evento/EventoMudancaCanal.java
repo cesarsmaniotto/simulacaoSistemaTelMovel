@@ -12,7 +12,7 @@ public class EventoMudancaCanal extends Evento {
 	private long duracaoChamada;
 
 	public EventoMudancaCanal(LocalTime tempoInicio, Celula cel, long duracaoChamada) {
-		super(tempoInicio);
+		super();
 		this.cel = cel;
 		this.duracaoChamada = duracaoChamada;
 
@@ -25,9 +25,7 @@ public class EventoMudancaCanal extends Evento {
 
 			LocalTime inicioProxEvento = getTempoInicio().plusSeconds(duracaoChamada / 2);
 
-			EventoFimChamada fimChamada = new EventoFimChamada(inicioProxEvento, cel, duracaoChamada);
-
-			calEventos.adicionarEvento(fimChamada);
+			calEventos.adicionarEvento(new EventoFimChamada(inicioProxEvento, cel, duracaoChamada));
 
 		} else {
 			cel.incrementaLigacoesPerdidasFaltaDeCanais();
@@ -36,6 +34,7 @@ public class EventoMudancaCanal extends Evento {
 		}
 
 		estadoAtual.decrementaOcupacaoCanal(cel.getOutraCelula().getId());
-		return estadoAtual;
+		
+		return new Estado(estadoAtual);
 	}
 }

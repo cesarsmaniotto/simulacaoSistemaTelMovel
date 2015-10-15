@@ -1,12 +1,14 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Celula {
 
 	private int nroCanais;
 	public String id;
-	private ArrayList<Long> listaTemposChamada;
+	private List<Long> listaTemposChamada;
 	private int qttLigacoesCompletadas;
 	private int qttLigacoesPerdidasFaltaDeCanais;
 	private int qttLigacoesPerdidasForaDeArea;
@@ -42,11 +44,11 @@ public class Celula {
 		this.id = id;
 	}
 
-	public ArrayList<Long> getListaTemposChamada() {
+	public List<Long> getListaTemposChamada() {
 		return listaTemposChamada;
 	}
 
-	public void setListaTemposChamada(ArrayList<Long> listaTemposChamada) {
+	public void setListaTemposChamada(List<Long> listaTemposChamada) {
 		this.listaTemposChamada = listaTemposChamada;
 	}
 
@@ -54,24 +56,12 @@ public class Celula {
 		return qttLigacoesCompletadas;
 	}
 
-	public void setQttLigacoesCompletadas(int qttLigacoesCompletadas) {
-		this.qttLigacoesCompletadas = qttLigacoesCompletadas;
-	}
-
 	public int getQttLigacoesPerdidasFaltaDeCanais() {
 		return qttLigacoesPerdidasFaltaDeCanais;
 	}
 
-	public void setQttLigacoesPerdidasFaltaDeCanais(int qttLigacoesPerdidasFaltaDeCanais) {
-		this.qttLigacoesPerdidasFaltaDeCanais = qttLigacoesPerdidasFaltaDeCanais;
-	}
-
 	public int getQttLigacoesPerdidasForaDeArea() {
 		return qttLigacoesPerdidasForaDeArea;
-	}
-
-	public void setQttLigacoesPerdidasForaDeArea(int qttLigacoesPerdidasForaDeArea) {
-		this.qttLigacoesPerdidasForaDeArea = qttLigacoesPerdidasForaDeArea;
 	}
 
 	public Celula getOutraCelula() {
@@ -98,16 +88,6 @@ public class Celula {
 		this.gerVarAleatoria = gerVarAleatoria;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return super.equals(obj);
-	}
 
 	public Chamada geraNovaChamada() {
 		return geradorDeChamadas.sorteia();
@@ -132,5 +112,29 @@ public class Celula {
 	public void adicionaDuracaoChamada(long duracaoChamada){
 		listaTemposChamada.add(duracaoChamada);
 	}
+	
+	public long getTempoChamadaMaiorDuracao(){
+		return Collections.max(listaTemposChamada);
+	}
+	
+	public long getTempoChamadaMenorDuracao(){
+		return Collections.min(listaTemposChamada);
+	}
+	
+	public long getTempoMedioDuracaoChamada(){
+		
+		long somatorio = 0;
+		
+		for(long tempo : listaTemposChamada){
+			
+			somatorio += tempo;
+			
+		}
+		
+		return somatorio / listaTemposChamada.size();	
+		
+	}
+	
+	
 
 }

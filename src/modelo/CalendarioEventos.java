@@ -28,7 +28,7 @@ public class CalendarioEventos extends Thread{
 		preparaInicioSimulacao();
 
 		boolean fimSimulacao = false;
-		Estado estado = new Estado();
+		Estado estado = null;
 
 		while (!fimSimulacao) {
 

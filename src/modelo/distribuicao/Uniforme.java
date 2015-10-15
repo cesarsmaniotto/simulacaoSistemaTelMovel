@@ -4,21 +4,21 @@ import java.util.Random;
 
 public class Uniforme implements Distribuicao {
 	
-	private Random r = new Random();
-	private float a;
-	private float b;
+	private Random random = new Random();
+	private double minimo;
+	private double maximo;
 
-	public Uniforme(float a, float b) {
+	public Uniforme(double minimo, double maximo) {
 		super();
-		this.a = a;
-		this.b = b;
+		this.minimo = minimo;
+		this.maximo = maximo;
 	}
 
-	public float geraVariavel() {
+	public double geraValor() {
 
-		float random = r.nextFloat();
+		double aleatory = random.nextDouble();
 
-		return a + ((b - a) * random);
+		return minimo + ((maximo - minimo) * aleatory);
 	}
 
 }

@@ -4,27 +4,27 @@ import java.util.Random;
 
 public class Triangular implements Distribuicao {
 
-	private Random r = new Random();
-	private float a;
-	private float b;
-	private float c;
+	private Random random = new Random();
+	private double minimo;
+	private double maximo;
+	private double moda;
 	
-	public Triangular(float a, float b, float c) {
+	public Triangular(double minimo, double maximo, double moda) {
 		super();
-		this.a = a;
-		this.b = b;
-		this.c = c;
+		this.minimo = minimo;
+		this.maximo = maximo;
+		this.moda = moda;
 	}
 	
-	public float geraVariavel(){
+	public double geraValor(){
 		
-		float random = r.nextFloat();
+		double aleatory = random.nextDouble();
 		
-		if(random <= ((b-a)/(c-a))){
-			return a + (float) Math.sqrt(random*(b-a)*(c-a));
+		if(aleatory <= ((maximo-minimo)/(moda-minimo))){
+			return minimo + Math.sqrt(aleatory*(maximo-minimo)*(moda-minimo));
 		}
 		
-		return c - (float) Math.sqrt((1-random)*(c-b)*(c-a));
+		return moda - Math.sqrt((1-aleatory)*(moda-maximo)*(moda-minimo));
 		
 		
 	}
