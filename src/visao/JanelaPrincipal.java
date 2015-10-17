@@ -209,8 +209,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
-        ds = fdc.getDistribuicao();
-        System.out.println(ds.geraValor());
+    //verificar se todos os objetos foram instanciados para poder iniciar a bagaça
+        try {
+            
+            ds = fdc.getDistribuicao();
+            
+            
+        } catch (Exception e) {
+        }
+        
+        
     }//GEN-LAST:event_jButton6MouseClicked
 
     /**
