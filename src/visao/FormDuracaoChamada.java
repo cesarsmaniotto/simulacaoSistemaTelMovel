@@ -5,6 +5,14 @@
  */
 package visao;
 
+import java.util.InputMismatchException;
+import modelo.distribuicao.Constante;
+import modelo.distribuicao.Distribuicao;
+import modelo.distribuicao.Exponencial;
+import modelo.distribuicao.Normal;
+import modelo.distribuicao.Triangular;
+import modelo.distribuicao.Uniforme;
+
 /**
  *
  * @author rr
@@ -14,8 +22,13 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
     /**
      * Creates new form FormDuracaoChamada
      */
+    private Distribuicao distrib;
+    
     public FormDuracaoChamada() {
         initComponents();  
+    }
+    public Distribuicao getDistribuicao(){
+        return distrib;
     }
 
     public void changeParamNames() {
@@ -23,13 +36,14 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
         switch (opt) {
             case 0:
                 //triangular
-
+                
                 jTextField1.setText("valor mínimo");
                 jTextField2.setText("moda");
                 jTextField3.setText("valor máximo");
                 jTextField1.setVisible(true);
                 jTextField2.setVisible(true);
                 jTextField3.setVisible(true);
+                
 
                 break;
             case 1:
@@ -81,12 +95,15 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -117,6 +134,15 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
 
         jTextField3.setText("valor maximo");
 
+        jButton1.setText("OK");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        jButton2.setText("CANCEL");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,6 +162,12 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
                             .addComponent(jTextField2)
                             .addComponent(jTextField1))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(130, 130, 130)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,7 +184,11 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,6 +205,50 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        int opt = jComboBox1.getSelectedIndex();
+        int a,b,c = 0;
+        try{            
+            switch(opt){
+                case 0:
+                    a = Integer.parseInt(jTextField1.getText());
+                    b = Integer.parseInt(jTextField2.getText());
+                    c = Integer.parseInt(jTextField3.getText());
+                    distrib = new Triangular(a, c, b);
+                    break;
+                case 1:
+                    a = Integer.parseInt(jTextField1.getText());
+                    b = Integer.parseInt(jTextField2.getText());
+            
+                    
+                    distrib = new Normal(a,b);
+                    break;
+                case 2:
+                    a = Integer.parseInt(jTextField1.getText());
+                    distrib = new Exponencial(a);
+                    break;
+                case 3:
+                    a = Integer.parseInt(jTextField1.getText());
+                    b = Integer.parseInt(jTextField2.getText());
+                    distrib = new Uniforme(a,b);
+                    break;
+                case 4:
+                    a = Integer.parseInt(jTextField1.getText());
+                    distrib = new Constante(a);
+                    break;
+                default:
+                    break;
+            }
+        }catch(InputMismatchException e){
+            //inserir a mensagem num text
+            System.out.println("errro que nao deveria acontecer!");
+            
+        }
+        this.dispose();
+        
+            
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -206,6 +286,9 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
