@@ -23,6 +23,7 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
      * Creates new form FormDuracaoChamada
      */
     private Distribuicao distrib;
+    private boolean definido;
     
     public FormDuracaoChamada() {
         initComponents();  
@@ -216,26 +217,29 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
                     b = Integer.parseInt(jTextField2.getText());
                     c = Integer.parseInt(jTextField3.getText());
                     distrib = new Triangular(a, c, b);
+                    definido = true;
                     break;
                 case 1:
                     a = Integer.parseInt(jTextField1.getText());
                     b = Integer.parseInt(jTextField2.getText());
-            
-                    
                     distrib = new Normal(a,b);
+                    definido = true;
                     break;
                 case 2:
                     a = Integer.parseInt(jTextField1.getText());
                     distrib = new Exponencial(a);
+                    definido = true;
                     break;
                 case 3:
                     a = Integer.parseInt(jTextField1.getText());
                     b = Integer.parseInt(jTextField2.getText());
                     distrib = new Uniforme(a,b);
+                    definido = true;
                     break;
                 case 4:
                     a = Integer.parseInt(jTextField1.getText());
                     distrib = new Constante(a);
+                    definido = true;
                     break;
                 default:
                     break;
@@ -249,7 +253,10 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
         
             
     }//GEN-LAST:event_jButton1MouseClicked
-
+    
+    public boolean estaDefinido(){
+        return definido;
+    }
     /**
      * @param args the command line arguments
      */

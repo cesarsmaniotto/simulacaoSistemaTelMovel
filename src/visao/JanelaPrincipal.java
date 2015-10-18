@@ -20,7 +20,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     FormDuracaoChamada fdc;
     FormProporcaoTipoChamada fpt;
     FormRelatorio fr;
+
     //impedir de iniciar caso ds seja null
+
     public JanelaPrincipal() {
         initComponents();
     }
@@ -38,11 +40,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -62,38 +65,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButton2.setText("Pausar");
 
         jButton3.setText("Continuar");
-
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Identificador", "Tipo Evento", "Duração", "Ocupação C1", "Ocupação C2", "Tempo atual"
-            }
-        ));
-        jScrollPane2.setViewportView(table);
-
-        jScrollPane3.setViewportView(jScrollPane2);
 
         jButton4.setText("Definir duração de chamadas");
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -126,46 +97,91 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jTextField2.setText("Definir tempo de simulação, proporção de ligações e duração de chamadas");
+
+        table.setAutoCreateRowSorter(true);
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Identificador", "Tipo Evento", "Duração", "Ocupação C1", "Ocupação C2", "Tempo atual"
+            }
+        ));
+        jScrollPane2.setViewportView(table);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
+                .addComponent(jButton2)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6))
+                        .addGap(12, 12, 12)
+                        .addComponent(jButton6)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(131, Short.MAX_VALUE))
+                        .addGap(497, 497, 497)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(jButton4)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(233, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton6))
-                .addGap(21, 21, 21)
+                    .addComponent(jButton6)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(443, Short.MAX_VALUE))
+                        .addComponent(jButton5)))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleParent(jScrollPane2);
@@ -175,7 +191,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -185,22 +201,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         fpt = new FormProporcaoTipoChamada();
         fpt.setVisible(true);
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton4KeyPressed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jButton4KeyPressed
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         fdc = new FormDuracaoChamada();
         fdc.setVisible(true);
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
@@ -209,16 +223,26 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
-    //verificar se todos os objetos foram instanciados para poder iniciar a bagaça
+        //verificar se todos os objetos foram instanciados para poder iniciar a bagaça
+        String msg = "";            
         try {
+            if (fdc == null || !fdc.estaDefinido()) {
+                msg += "Defina a duração de chamadas. ";
+            }
+            if (fpt == null || !fpt.estaDefinido()) {
+                msg += "Defina a proporção dos tipos de chamada e tempo de simulação.";
+            }
+
+            if (fpt.estaDefinido() && fdc.estaDefinido()) {
+                msg += "Iniciando simulacao";
+            }
+            jTextField2.setText(msg);
+        } catch (NullPointerException e) {            
             
-            ds = fdc.getDistribuicao();
             
-            
-        } catch (Exception e) {
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton6MouseClicked
 
     /**
@@ -265,6 +289,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
