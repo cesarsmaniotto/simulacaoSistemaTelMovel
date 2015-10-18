@@ -16,11 +16,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form JanelaPrincipal
      */
-    Distribuicao ds;
-    FormDuracaoChamada fdc;
-    FormProporcaoTipoChamada fpt;
-    FormRelatorio fr;
-
+    private Distribuicao ds;
+    private FormTEC  ftc;
+    private FormDuracaoChamada fdc;
+    private FormProporcaoTipoChamada fpt;
+    private FormRelatorio fr;
+    public boolean definido;
     //impedir de iniciar caso ds seja null
 
     public JanelaPrincipal() {
@@ -46,6 +47,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -130,6 +132,23 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(table);
 
+        jButton7.setText("Definir tempo entre chamadas");
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jButton7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton7KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,10 +170,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jButton4)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(233, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -179,6 +199,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton7)
                         .addGap(18, 18, 18)
                         .addComponent(jButton5)))
                 .addContainerGap(91, Short.MAX_VALUE))
@@ -230,20 +252,38 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 msg += "Defina a duração de chamadas. ";
             }
             if (fpt == null || !fpt.estaDefinido()) {
-                msg += "Defina a proporção dos tipos de chamada e tempo de simulação.";
+                msg += "Defina a proporção dos tipos de chamada e tempo de simulação. ";
             }
-
-            if (fpt.estaDefinido() && fdc.estaDefinido()) {
+            if (ftc == null || !fpt.estaDefinido()) {
+                msg += "Defina o tempo entre chamadas.";
+            }
+            if (fpt.estaDefinido() && fdc.estaDefinido() && ftc.estaDefinido()) {
                 msg += "Iniciando simulacao";
+                definido = true;
+                
             }
             jTextField2.setText(msg);
-        } catch (NullPointerException e) {            
+        } catch (NullPointerException e) {       
             
             
         }
 
 
     }//GEN-LAST:event_jButton6MouseClicked
+    
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+        ftc = new FormTEC();
+        ftc.setVisible(true);
+        
+    }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton7KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton7KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7KeyPressed
 
     /**
      * @param args the command line arguments
@@ -287,6 +327,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField2;
