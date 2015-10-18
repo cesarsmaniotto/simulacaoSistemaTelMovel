@@ -1,29 +1,28 @@
 package modelo.evento;
 
 import java.time.LocalTime;
-
 import modelo.CalendarioEventos;
+import modelo.Celula;
 import modelo.Cluster;
 import modelo.Estado;
 
 public class EventoInicioSimulacao extends Evento{
 
-	
+	private Cluster cluster;
 
-	public EventoInicioSimulacao(LocalTime tempoInicio) {
+	public EventoInicioSimulacao(LocalTime tempoInicio, Cluster cluster) {
 		super(tempoInicio);
-		// TODO Auto-generated constructor stub
+		this.cluster = cluster;
 	}
 
 	@Override
 	public Estado processaEvento(CalendarioEventos calEventos, Estado estadoAtual) {
-		EventoInicioChamada inicioC1 = new EventoInicioChamada(getTempoInicio(), Cluster.getInstance().getC1());
-		EventoInicioChamada inicioC2 = new EventoInicioChamada(getTempoInicio(), Cluster.getInstance().getC2());
-		 		
-		calEventos.adicionarEvento(inicioC1);
-		calEventos.adicionarEvento(inicioC2);
+	
+		for(Celula cel : cluster.getCelulas()){
+			calEventos.adicionarEvento(new EventoInicioChamada(getTempoInicio(), cluster, cel.getId()));
+		}
 		
-		return new Estado(estadoAtual);
+		return new Estado(estadoAtual, getTempoInicio());
 	}
 
 }

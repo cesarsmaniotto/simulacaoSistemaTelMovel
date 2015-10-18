@@ -4,32 +4,41 @@ import java.time.LocalTime;
 
 import modelo.CalendarioEventos;
 import modelo.Celula;
+import modelo.Chamada;
+import modelo.Cluster;
 import modelo.Estado;
 
 public class EventoFimChamada extends Evento {
 
-	private Celula cel;
-	private long duracaoChamada;
+	private Chamada chamada;
+	private Cluster cluster;
 
-	public EventoFimChamada(LocalTime tempoInicio, Celula cel,
-			long duracaoChamada) {
+
+	public EventoFimChamada(LocalTime tempoInicio, Chamada chamada,
+			Cluster cluster) {
 		super(tempoInicio);
-		this.cel = cel;
-		this.duracaoChamada = duracaoChamada;
+		this.chamada = chamada;
+		this.cluster = cluster;
 
 	}
 
 	@Override
 	public Estado processaEvento(CalendarioEventos calEventos,
 			Estado estadoAtual) {
+		
+		String idDestino = chamada.getDestino().getId();
 
-		estadoAtual.decrementaOcupacaoCanal(cel.getId());
+		estadoAtual.decrementaOcupacaoCanal(idDestino);
+		
+		Celula celDestino = cluster.getCelula(idDestino);
 
-		cel.incrementaLigacoesCompletadas();
+		celDestino.incrementaLigacoesCompletadas();
 
-		cel.adicionaDuracaoChamada(duracaoChamada);
+		celDestino.adicionaDuracaoChamada(chamada.getTempoDuracao());
+		
+		cluster.atualizaCelula(celDestino);
 
-		return new Estado(estadoAtual);
+		return new Estado(estadoAtual, getTempoInicio());
 
 	}
 }

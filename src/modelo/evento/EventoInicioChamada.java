@@ -5,25 +5,26 @@ import java.time.LocalTime;
 import modelo.CalendarioEventos;
 import modelo.Celula;
 import modelo.Chamada;
+import modelo.Cluster;
 import modelo.Estado;
 
 public class EventoInicioChamada extends Evento {
 
-	/**
-	 * @param tempoInicio
-	 * @param duracao
-	 */
-	private Celula cel;
+	private Cluster cluster;
+	private String idCelula;
 
-	public EventoInicioChamada(LocalTime tempoInicio, Celula cel) {
+	public EventoInicioChamada(LocalTime tempoInicio, Cluster cluster,
+			String idCelula) {
 		super(tempoInicio);
-		this.cel = cel;
-
+		this.cluster = cluster;
+		this.idCelula = idCelula;
 	}
 
 	@Override
-	public Estado processaEvento(CalendarioEventos calEventos, Estado estadoAtual) {
+	public Estado processaEvento(CalendarioEventos calEventos,
+			Estado estadoAtual) {
 
+		Celula cel = cluster.getCelula(idCelula);
 		Chamada chamada = cel.geraNovaChamada();
 
 		if (estadoAtual.getOcupacaoCanal(cel.getId()) < cel.getNroCanais()) {
@@ -32,21 +33,21 @@ public class EventoInicioChamada extends Evento {
 
 			switch (chamada.getTipo()) {
 			case COMECA_E_TERMINA_NA_MESMA_CELULA:
-				
-				proximoEvento = new EventoFimChamada(getTempoInicio().plusSeconds(chamada.getTempoDuracao()), cel,
-						chamada.getTempoDuracao());
+
+				proximoEvento = new EventoFimChamada(getTempoInicio()
+						.plusSeconds(chamada.getTempoDuracao()), chamada, cluster);
 				break;
 
 			case TERMINA_EM_UMA_CELULA_DIFERENTE:
 
-				proximoEvento = new EventoMudancaCanal(getTempoInicio().plusSeconds(chamada.getTempoDuracao() / 2),
-						cel.getOutraCelula(), chamada.getTempoDuracao());
+				proximoEvento = new EventoMudancaCanal(getTempoInicio()
+						.plusSeconds(chamada.getTempoDuracao() / 2), chamada, cluster);
 				break;
 
 			case TERMINA_FORA_DA_AREA_DE_COBERTURA:
 
-				proximoEvento = new EventoMudancaCanal(getTempoInicio().plusSeconds(chamada.getTempoDuracao() / 2), cel,
-						chamada.getTempoDuracao());
+				proximoEvento = new EventoSaidaAreaCobertura(getTempoInicio()
+						.plusSeconds(chamada.getTempoDuracao() / 2), chamada, cluster);
 				break;
 
 			}
@@ -55,16 +56,19 @@ public class EventoInicioChamada extends Evento {
 
 			estadoAtual.incrementaOcupacaoCanal(cel.getId());
 
-			calEventos.adicionarEvento(
-					new EventoInicioChamada(this.tempoInicio.plusSeconds(cel.tempoParaNovaChamada()), cel));
+			
 
 		} else {
 
 			cel.incrementaLigacoesPerdidasFaltaDeCanais();
+			cluster.atualizaCelula(cel);
 
 		}
 		
-		return new Estado(estadoAtual);
+		calEventos.adicionarEvento(new EventoInicioChamada(this.tempoInicio
+				.plusSeconds(cel.tempoParaNovaChamada()), cluster, cel.getId()));
+
+		return new Estado(estadoAtual, getTempoInicio());
 
 	}
 }

@@ -2,58 +2,85 @@ package modelo;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.TreeSet;
-
+import java.util.Collections;
+import java.util.List;
 import modelo.evento.Evento;
 import modelo.evento.EventoFimSimulacao;
-import modelo.evento.EventoInicioChamada;
 import modelo.evento.EventoInicioSimulacao;
 
 public class CalendarioEventos extends Thread {
 
 	private LocalTime tempoMaximoSimulacao;
 	private HistoricoEstados historico;
-	private TreeSet<Evento> listaProximosEventos;
+	private List<Evento> listaProximosEventos;
+	private Cluster cluster;
+	private boolean pausado;
 
-	public CalendarioEventos(LocalTime tempoMaximoSimulacao) {
-		this.historico = new HistoricoEstados();
-		this.listaProximosEventos = new TreeSet<>();
+	public CalendarioEventos(LocalTime tempoMaximoSimulacao, Cluster cluster) {
+		this.pausado = false;
+		this.historico = new HistoricoEstados(tempoMaximoSimulacao);
+		this.cluster = cluster;
+		this.listaProximosEventos = new ArrayList<>();
 		this.tempoMaximoSimulacao = tempoMaximoSimulacao;
 	}
 
 	public void run() {
-		iniciaSimulacao();
-	}
-
-	public void iniciaSimulacao() {
-
 		preparaInicioSimulacao();
 
 		boolean fimSimulacao = false;
-		Estado estado = null;
-
+		Estado estado = new Estado(LocalTime.MIDNIGHT);
+		
 		while (!fimSimulacao) {
+			
+			verificaPausa();
 
-			Evento ev = listaProximosEventos.first();
+			Evento ev = listaProximosEventos.get(0);
 
 			if (ev instanceof EventoFimSimulacao) {
 				fimSimulacao = true;
 			}
+			
+			System.out.println("processando evento iniciando em " + ev.getTempoInicio());
 
 			estado = ev.processaEvento(this, estado);
 
 			historico.adicionarEstado(estado);
 
 			listaProximosEventos.remove(ev);
+			Collections.sort(listaProximosEventos);
 
 		}
-
 	}
 
+	public synchronized void verificaPausa(){
+		
+		while(pausado){
+			
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+	
+	public synchronized void setPausado(boolean pausado){
+		
+		this.pausado = pausado;
+		
+		if(!pausado){
+			notify();
+		}
+		
+	}
+	
+	
 	private void preparaInicioSimulacao() {
 
-		LocalTime relogioInicial = LocalTime.of(0, 0, 0);
-		this.adicionarEvento(new EventoInicioSimulacao(relogioInicial));
+		this.adicionarEvento(new EventoInicioSimulacao(LocalTime.MIDNIGHT, cluster));
 		this.adicionarEvento(new EventoFimSimulacao(tempoMaximoSimulacao));
 
 	}
@@ -62,6 +89,10 @@ public class CalendarioEventos extends Thread {
 
 		listaProximosEventos.add(ev);
 
+	}
+	
+	public HistoricoEstados getHistorico(){
+		return historico;
 	}
 
 }

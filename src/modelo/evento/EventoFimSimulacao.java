@@ -15,7 +15,7 @@ public class EventoFimSimulacao extends Evento{
 	@Override
 	public Estado processaEvento(CalendarioEventos calEventos, Estado estadoAtual) {
 		
-		return new Estado(estadoAtual);
+		return new Estado(estadoAtual, getTempoInicio());
 	}
 
 }

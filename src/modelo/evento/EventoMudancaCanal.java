@@ -4,37 +4,50 @@ import java.time.LocalTime;
 
 import modelo.CalendarioEventos;
 import modelo.Celula;
+import modelo.Chamada;
+import modelo.Cluster;
 import modelo.Estado;
 
 public class EventoMudancaCanal extends Evento {
 
-	private Celula cel;
-	private long duracaoChamada;
+	private Chamada chamada;
+	private Cluster cluster;
 
-	public EventoMudancaCanal(LocalTime tempoInicio, Celula cel, long duracaoChamada) {
+	public EventoMudancaCanal(LocalTime tempoInicio, Chamada chamada,
+			Cluster cluster) {
 		super(tempoInicio);
-		this.cel = cel;
-		this.duracaoChamada = duracaoChamada;
-
+		this.chamada = chamada;
+		this.cluster = cluster;
 	}
 
 	@Override
-	public Estado processaEvento(CalendarioEventos calEventos, Estado estadoAtual) {
+	public Estado processaEvento(CalendarioEventos calEventos,
+			Estado estadoAtual) {
+		
+		Celula celOrigem = cluster.getCelula(chamada.getOrigem().getId());
+		Celula celDestino = cluster.getCelula(chamada.getDestino().getId());
 
-		if (estadoAtual.getOcupacaoCanal(cel.getId()) < cel.getNroCanais()) {
+		if (estadoAtual.getOcupacaoCanal(celDestino.getId()) < celDestino.getNroCanais()) {
 
-			LocalTime inicioProxEvento = getTempoInicio().plusSeconds(duracaoChamada / 2);
+			LocalTime inicioProxEvento = getTempoInicio().plusSeconds(
+					chamada.getTempoDuracao() / 2);
 
-			calEventos.adicionarEvento(new EventoFimChamada(inicioProxEvento, cel, duracaoChamada));
+			calEventos.adicionarEvento(new EventoFimChamada(inicioProxEvento,
+					chamada, cluster));
+			
+			estadoAtual.incrementaOcupacaoCanal(celDestino.getId());
 
 		} else {
-			cel.incrementaLigacoesPerdidasFaltaDeCanais();
+			celDestino.incrementaLigacoesPerdidasFaltaDeCanais();
 
-			cel.adicionaDuracaoChamada(duracaoChamada / 2);
+			celDestino.adicionaDuracaoChamada(
+					chamada.getTempoDuracao() / 2);
+			
+			cluster.atualizaCelula(celDestino);
 		}
 
-		estadoAtual.decrementaOcupacaoCanal(cel.getOutraCelula().getId());
-		
-		return new Estado(estadoAtual);
+		estadoAtual.decrementaOcupacaoCanal(celOrigem.getId());
+
+		return new Estado(estadoAtual, getTempoInicio());
 	}
 }

@@ -17,7 +17,7 @@ public class Exponencial implements Distribuicao {
 	@Override
 	public double geraValor() {
 		
-		return (float) (- media * Math.log(1 - random.nextDouble()));
+		return (- media) * Math.log(1 - random.nextDouble());
 		
 	}
 

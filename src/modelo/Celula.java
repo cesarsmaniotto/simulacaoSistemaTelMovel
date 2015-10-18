@@ -1,5 +1,6 @@
 package modelo;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,14 +8,14 @@ import java.util.List;
 public class Celula {
 
 	private int nroCanais;
-	public String id;
+	private String id;
 	private List<Long> listaTemposChamada;
 	private int qttLigacoesCompletadas;
 	private int qttLigacoesPerdidasFaltaDeCanais;
 	private int qttLigacoesPerdidasForaDeArea;
-	private Celula outraCelula;
+	private List<Celula> conexoes;
 	private SorteioDeChamadas geradorDeChamadas;
-	private GeradorVariavelAleatoria gerVarAleatoria;
+	private GeradorVariavelAleatoria tempoEntreChamadas;
 
 	/**
 	 * 
@@ -25,6 +26,7 @@ public class Celula {
 		this.qttLigacoesPerdidasFaltaDeCanais = 0;
 		this.qttLigacoesPerdidasForaDeArea = 0;
 		this.listaTemposChamada = new ArrayList<Long>();
+
 
 	}
 
@@ -42,6 +44,14 @@ public class Celula {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public List<Celula> getConexoes() {
+		return conexoes;
+	}
+
+	public void setConexoes(List<Celula> conexoes) {
+		this.conexoes = conexoes;
 	}
 
 	public List<Long> getListaTemposChamada() {
@@ -64,13 +74,6 @@ public class Celula {
 		return qttLigacoesPerdidasForaDeArea;
 	}
 
-	public Celula getOutraCelula() {
-		return outraCelula;
-	}
-
-	public void setOutraCelula(Celula outraCelula) {
-		this.outraCelula = outraCelula;
-	}
 
 	public SorteioDeChamadas getGeradorDeChamadas() {
 		return geradorDeChamadas;
@@ -80,12 +83,12 @@ public class Celula {
 		this.geradorDeChamadas = geradorDeChamadas;
 	}
 
-	public GeradorVariavelAleatoria getGerVarAleatoria() {
-		return gerVarAleatoria;
+	public GeradorVariavelAleatoria getTempoEntreChamadas() {
+		return tempoEntreChamadas;
 	}
 
-	public void setGerVarAleatoria(GeradorVariavelAleatoria gerVarAleatoria) {
-		this.gerVarAleatoria = gerVarAleatoria;
+	public void setTempoEntreChamadas(GeradorVariavelAleatoria tempoEntreChamadas) {
+		this.tempoEntreChamadas = tempoEntreChamadas;
 	}
 
 
@@ -94,7 +97,7 @@ public class Celula {
 	}
 	
 	public long tempoParaNovaChamada(){
-		return (long) gerVarAleatoria.gera();
+		return (long) tempoEntreChamadas.gera();
 	}
 	
 	public void incrementaLigacoesPerdidasFaltaDeCanais(){
@@ -113,15 +116,15 @@ public class Celula {
 		listaTemposChamada.add(duracaoChamada);
 	}
 	
-	public long getTempoChamadaMaiorDuracao(){
-		return Collections.max(listaTemposChamada);
+	public LocalTime getTempoChamadaMaiorDuracao(){
+		return LocalTime.MIDNIGHT.plusSeconds(Collections.max(listaTemposChamada));
 	}
 	
-	public long getTempoChamadaMenorDuracao(){
-		return Collections.min(listaTemposChamada);
+	public LocalTime getTempoChamadaMenorDuracao(){
+		return LocalTime.MIDNIGHT.plusSeconds(Collections.min(listaTemposChamada));
 	}
 	
-	public long getTempoMedioDuracaoChamada(){
+	public LocalTime getTempoMedioDuracaoChamada(){
 		
 		long somatorio = 0;
 		
@@ -131,7 +134,7 @@ public class Celula {
 			
 		}
 		
-		return somatorio / listaTemposChamada.size();	
+		return LocalTime.MIDNIGHT.plusSeconds(somatorio / listaTemposChamada.size());	
 		
 	}
 	

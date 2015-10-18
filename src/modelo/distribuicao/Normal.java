@@ -23,6 +23,7 @@ public class Normal implements Distribuicao {
 	public double geraValor() {
 
 		if (proximoJaFoiCalculado) {
+			proximoJaFoiCalculado = false;
 			return proximo;
 		} else {
 			double aleatory1 = random.nextDouble();
@@ -34,7 +35,7 @@ public class Normal implements Distribuicao {
 					* Math.sin(2 * Math.PI * aleatory2);
 
 			proximo = (media + (desvioPadrao * z2));
-			
+			proximoJaFoiCalculado = true;
 			return (media + (desvioPadrao * z1));
 		}
 

@@ -1,50 +1,50 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Cluster {
 
-	private Celula c1;
-	
-	private Celula c2;
-	
-	private static Cluster clusterInstance;
-	
-	/**
-	 * 
-	 */
-	private Cluster() {
-		c1 = new Celula("C1");
-		c2 = new Celula("C2");
-		c1.setOutraCelula(c2);
-		c2.setOutraCelula(c1);
-	}
-	
-	public static Cluster getInstance(){
-		
-		if(clusterInstance == null){
-			clusterInstance = new Cluster();
+	private Map<String,Celula> celulas;
+
+	public Cluster(int qttCelulas) {
+
+		this.celulas = new HashMap<>();
+
+		for (int i = 1; i <= qttCelulas; i++) {
+			celulas.put("C" + i,new Celula("C" + i));
 		}
-		
-		return clusterInstance;
-		
+
+		for (Celula cel : celulas.values()) {
+
+			List<Celula> conexoes = new ArrayList<>(celulas.values());
+			conexoes.remove(cel);
+
+			cel.setConexoes(conexoes);
+
+		}
+
+	}
+
+	public Collection<Celula> getCelulas() {
+		return celulas.values();
+	}
+
+	public void setCelulas(Map<String, Celula> celulas) {
+		this.celulas = celulas;
 	}
 	
-	public Celula getC1() {
-		return c1;
-	}
-
-	public void setC1(Celula c1) {
-		this.c1 = c1;
-	}
-
-	public Celula getC2() {
-		return c2;
-	}
-
-	public void setC2(Celula c2) {
-		this.c2 = c2;
+	public Celula getCelula(String id){
+		return celulas.get(id);
 	}
 	
+	public void atualizaCelula(Celula cel){
+		celulas.put(cel.getId(), cel);
+	}
+
 	
 
 }
