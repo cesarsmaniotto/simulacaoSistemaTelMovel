@@ -18,7 +18,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
      */
     private Distribuicao ds;
     private FormTEC  ftc;
-    private FormDuracaoChamada fdc;
+    private FormDuracaoChamada fdc1,fdc2;
     private FormProporcaoTipoChamada fpt;
     private FormRelatorio fr;
     public boolean definido;
@@ -27,7 +27,23 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public JanelaPrincipal() {
         initComponents();
     }
-
+    
+    public double getTEC1(){
+        return ftc.getTECC1();
+    }
+    public double getTEC2(){
+        return ftc.getTECC2();
+    }
+    public Distribuicao getDistriuicaoChamadasC1(){
+        return fdc1.getDistribuicao();
+    }
+    public Distribuicao getDistriuicaoChamadasC2(){
+        return fdc2.getDistribuicao();
+    }
+    public FormProporcaoTipoChamada getProporcao(){
+        return fpt;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,6 +64,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -68,7 +85,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jButton3.setText("Continuar");
 
-        jButton4.setText("Definir duração de chamadas");
+        jButton4.setText("Definir duração de chamadas C1");
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton4MouseClicked(evt);
@@ -149,6 +166,23 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton8.setText("Definir duração de chamadas C2");
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton8MouseClicked(evt);
+            }
+        });
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jButton8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton8KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -174,7 +208,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                             .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(233, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -199,7 +234,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton8)
+                        .addGap(22, 22, 22)
                         .addComponent(jButton7)
                         .addGap(18, 18, 18)
                         .addComponent(jButton5)))
@@ -233,8 +270,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4KeyPressed
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        fdc = new FormDuracaoChamada();
-        fdc.setVisible(true);
+        fdc1 = new FormDuracaoChamada();
+        fdc1.setVisible(true);
 
 
     }//GEN-LAST:event_jButton4MouseClicked
@@ -248,7 +285,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         //verificar se todos os objetos foram instanciados para poder iniciar a bagaça
         String msg = "";            
         try {
-            if (fdc == null || !fdc.estaDefinido()) {
+            if (fdc1 == null || !fdc1.estaDefinido() || fdc2 == null || !fdc2.estaDefinido()) {
                 msg += "Defina a duração de chamadas. ";
             }
             if (fpt == null || !fpt.estaDefinido()) {
@@ -257,7 +294,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             if (ftc == null || !fpt.estaDefinido()) {
                 msg += "Defina o tempo entre chamadas.";
             }
-            if (fpt.estaDefinido() && fdc.estaDefinido() && ftc.estaDefinido()) {
+            if (fpt.estaDefinido() && fdc1.estaDefinido() && ftc.estaDefinido() && fdc2.estaDefinido()) {
                 msg += "Iniciando simulacao";
                 definido = true;
                 
@@ -284,6 +321,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void jButton7KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton7KeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7KeyPressed
+
+    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+        fdc2 = new FormDuracaoChamada();
+        fdc2.setVisible(true);
+    }//GEN-LAST:event_jButton8MouseClicked
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton8KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton8KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8KeyPressed
 
     /**
      * @param args the command line arguments
@@ -328,6 +378,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField2;

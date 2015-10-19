@@ -28,6 +28,43 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
     public boolean estaDefinido(){
         return definido;
     }
+
+    public int getQttLinhasC1() {
+        return qttLinhasC1;
+    }
+
+    public int getQttLinhasC2() {
+        return qttLinhasC2;
+    }
+
+    public int getTempoSimulacao() {
+        return tempoSimulacao;
+    }
+
+    public int getProporcaoC1C1() {
+        return proporcaoC1C1;
+    }
+
+    public int getProporcaoC2C2() {
+        return proporcaoC2C2;
+    }
+
+    public int getProporcaoC1C2() {
+        return proporcaoC1C2;
+    }
+
+    public int getProporcaoC2C1() {
+        return proporcaoC2C1;
+    }
+
+    public int getProporcaoC1FA() {
+        return proporcaoC1FA;
+    }
+
+    public int getProporcaoC2FA() {
+        return proporcaoC2FA;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,7 +129,7 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Definir proporção dos tipos de ligações");
+        jLabel7.setText("Definir proporção dos tipos de ligações em %");
 
         jTextField7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,7 +323,7 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
     private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField11ActionPerformed
-
+/*VERIFICAR PROPORCAO PARA 100% E NUMEROS NEGATIVOS!!!*/
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         try{
             proporcaoC1FA = Integer.parseInt(jTextField9.getText());
@@ -298,7 +335,7 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
             proporcaoC2FA = Integer.parseInt(jTextField6.getText());
             qttLinhasC1 = Integer.parseInt(jTextField10.getText());
             qttLinhasC2 = Integer.parseInt(jTextField11.getText());
-            tempoSimulacao = Integer.parseInt("1");
+            tempoSimulacao = Integer.parseInt(jTextField1.getText());
             definido = true;
             this.dispose();
             

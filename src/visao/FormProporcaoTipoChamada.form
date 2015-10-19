@@ -202,7 +202,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Definir propor&#xe7;&#xe3;o dos tipos de liga&#xe7;&#xf5;es"/>
+        <Property name="text" type="java.lang.String" value="Definir propor&#xe7;&#xe3;o dos tipos de liga&#xe7;&#xf5;es em %"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField7">
