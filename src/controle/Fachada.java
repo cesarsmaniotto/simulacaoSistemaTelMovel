@@ -1,12 +1,14 @@
 package controle;
 
 import java.time.LocalTime;
+import java.util.Observer;
 import modelo.CalendarioEventos;
 import modelo.Celula;
 import modelo.Cluster;
 import modelo.GeradorVariavelAleatoria;
 import modelo.HistoricoEstados;
 import modelo.SorteioDeChamadas;
+import visao.JanelaPrincipal;
 
 public class Fachada {
 
@@ -42,7 +44,7 @@ public class Fachada {
 	}
 
 	public void definirNumeroCanaisCelula(String idCelula, int qttCanais) {
-
+               
 		Celula cel = cluster.getCelula(idCelula);
 		cel.setNroCanais(qttCanais);
 		cluster.atualizaCelula(cel);
@@ -122,5 +124,26 @@ public class Fachada {
 		
 		System.out.println(strBuilder);
 	}
+        //comunica-se com o calendario sem misturar interface e modelo
+        public void adicionarObservador(Observer ob){
+            calEventos.adicionarObservador(ob);
+        }
+        
+        public void adicionarObservadorDeProgresso(JanelaPrincipal jp,Observer ob){
+            jp.adicionarObservadorProgresso(ob);
+            
+        }
+
+    public void informarObservado(JanelaPrincipal jp) {
+        jp.adicionarObservadorProgresso(this.calEventos);
+    }
+    public CalendarioEventos infomarObservador(){
+        return calEventos;
+    }
+    public boolean fimSimulacao(){
+        return calEventos.ehFimSimulacao();
+    }
+    
+    
 
 }
