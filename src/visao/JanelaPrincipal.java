@@ -35,7 +35,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
     public boolean definido = false;
     public boolean pausado = false;
     private int indiceTable;
-    public int velocidade = 1000;
+    public int velocidade = 550;
     //impedir de iniciar caso ds seja null
 
     public JanelaPrincipal() {
@@ -323,7 +323,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
     
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
         if(!jSlider1.getValueIsAdjusting()){
-            velocidade = 1400-jSlider1.getValue()*10;
+            velocidade = 1300-jSlider1.getValue()*11;
         }
     }//GEN-LAST:event_jSlider1StateChanged
 
@@ -450,7 +450,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
         ps.addObserver(ob);
     }
     Guia guia;
-    public void gerarRelatorio(String s, float[] eixoX, float[] eixoY){
+    public void gerarRelatorio(String s){
         guia = new Guia();
         guia.ocupa1 = ocupa1;
         guia.ocupa2 = ocupa2;

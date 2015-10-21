@@ -42,6 +42,8 @@ public class MainComInterface {
                     fachada.definirVelocidade(jp.velocidade);
                     if(jp.pausado){
                         fachada.pausarSimulacao();
+                        jp.gerarRelatorio(fachada.obterRelatorio());
+                        
                     }else{
                         fachada.continuarSimulacao();
 
@@ -51,7 +53,7 @@ public class MainComInterface {
                 jp.definido = false;
                 
                 
-                jp.gerarRelatorio(fachada.obterRelatorio(), null, null);
+                jp.gerarRelatorio(fachada.obterRelatorio());
                 
               //  fachada.pausarSimulacao();
 
@@ -74,9 +76,9 @@ public class MainComInterface {
         FormProporcaoTipoChamada fp;
         fp = jp.getProporcao();
         //tempoSimulação = fp.getTempoSimulacao();                
-        tempoSimulação = 15;
+        tempoSimulação = 70;
         //Fachada fachada = new Fachada();
-        fachada.definirTempoSimulacao(LocalTime.of(0, tempoSimulação, 0));
+        fachada.definirTempoSimulacao(LocalTime.MIDNIGHT.plusMinutes(tempoSimulação));
 
 //                numeroCanaisC1 = fp.getQttLinhasC1();
 //              numeroCanaisC2 = fp.getQttLinhasC2();

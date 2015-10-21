@@ -7,17 +7,21 @@ import modelo.Celula;
 import modelo.Chamada;
 import modelo.Cluster;
 import modelo.Estado;
+import modelo.TipoChamada;
 
 public class EventoInicioChamada extends Evento {
 
 	private Cluster cluster;
 	private String idCelula;
+        private Chamada chamada;
 
 	public EventoInicioChamada(LocalTime tempoInicio, Cluster cluster,
 			String idCelula) {
 		super(tempoInicio);
 		this.cluster = cluster;
+                
 		this.idCelula = idCelula;
+                
 	}
 
 	@Override
@@ -25,7 +29,8 @@ public class EventoInicioChamada extends Evento {
 			Estado estadoAtual) {
 
 		Celula cel = cluster.getCelula(idCelula);
-		Chamada chamada = cel.geraNovaChamada();
+                chamada = cel.geraNovaChamada();
+                
 
 		if (estadoAtual.getOcupacaoCanal(cel.getId()) < cel.getNroCanais()) {
 
@@ -74,6 +79,7 @@ public class EventoInicioChamada extends Evento {
 
         @Override
         public String toString() {
+            
             return idCelula;
         }
         

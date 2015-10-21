@@ -33,7 +33,7 @@ public class Grafico extends javax.swing.JFrame {
     
     public void criarDados(ArrayList<String> tempo,ArrayList<Integer> ocupacao){
         for(int i = 0; i < tempo.size();i++){
-            dataset.addValue(ocupacao.get(i),"tempo",tempo.get(i));
+            dataset.addValue(ocupacao.get(i),"ocupacao",tempo.get(i));
         }
         
     }

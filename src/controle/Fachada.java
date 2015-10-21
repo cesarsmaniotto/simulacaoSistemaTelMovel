@@ -85,14 +85,7 @@ public class Fachada {
 
 	public String obterRelatorio() {
 
-		while (calEventos.isAlive()) {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		
 		
 		HistoricoEstados historico = calEventos.getHistorico();
 		
@@ -118,7 +111,7 @@ public class Fachada {
 			strBuilder
 					.append("Número de chamadas perdidas por saída da área de cobertura: "
 							+ cel.getQttLigacoesPerdidasForaDeArea() + "\n");
-
+                        //tratar excecao de lista nao existente!!!!
 			strBuilder.append("Chamada de menor duração: "
 					+ cel.getTempoChamadaMenorDuracao() + "\n");
 			strBuilder.append("Chamada de maior duração: "
