@@ -17,16 +17,17 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
     /**
      * Creates new form FormParametros
      */
-    private int qttLinhasC1,qttLinhasC2, tempoSimulacao;
-    private int proporcaoC1C1,proporcaoC2C2;
-    private int proporcaoC1C2,proporcaoC2C1;
+    private int qttLinhasC1, qttLinhasC2, tempoSimulacao;
+    private int proporcaoC1C1, proporcaoC2C2;
+    private int proporcaoC1C2, proporcaoC2C1;
     private int proporcaoC1FA, proporcaoC2FA;
     private boolean definido;
-    
+
     public FormProporcaoTipoChamada() {
         initComponents();
     }
-    public boolean estaDefinido(){
+
+    public boolean estaDefinido() {
         return definido;
     }
 
@@ -65,7 +66,7 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
     public int getProporcaoC2FA() {
         return proporcaoC2FA;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -336,48 +337,43 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
     private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField11ActionPerformed
-/*VERIFICAR PROPORCAO PARA 100% E NUMEROS NEGATIVOS!!!*/
+    /*VERIFICAR NUMEROS NEGATIVOS!!!*/
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         boolean proporcaoCorreta = false;
-        try{
-                proporcaoC1FA = Integer.parseInt(jTextField9.getText());
-                proporcaoC1C2 = Integer.parseInt(jTextField8.getText());
-                proporcaoC1C1 = Integer.parseInt(jTextField7.getText());            
-                proporcaoC2C2 = Integer.parseInt(jTextField4.getText());
-                proporcaoC2C1 = Integer.parseInt(jTextField5.getText());
-                proporcaoC2FA = Integer.parseInt(jTextField6.getText());   
-                qttLinhasC1 = Integer.parseInt(jTextField10.getText());
-                qttLinhasC2 = Integer.parseInt(jTextField11.getText());
+        try {
+            proporcaoC1FA = Integer.parseInt(jTextField9.getText());
+            proporcaoC1C2 = Integer.parseInt(jTextField8.getText());
+            proporcaoC1C1 = Integer.parseInt(jTextField7.getText());
+            proporcaoC2C2 = Integer.parseInt(jTextField4.getText());
+            proporcaoC2C1 = Integer.parseInt(jTextField5.getText());
+            proporcaoC2FA = Integer.parseInt(jTextField6.getText());
+            qttLinhasC1 = Integer.parseInt(jTextField10.getText());
+            qttLinhasC2 = Integer.parseInt(jTextField11.getText());
+            tempoSimulacao = Integer.parseInt(jTextField1.getText());
+
+
+            if ((proporcaoC1C1 + proporcaoC1C2 + proporcaoC1FA == 100) && (proporcaoC2C1 + proporcaoC2C2 + proporcaoC2FA == 100) && tempoSimulacao <= 59) {
+                proporcaoCorreta = true;
+            } else {
+                JOptionPane.showMessageDialog(null, "PROPORÇÃO SÓ ATÉ 100%,tempo maximo até 59 min e apenas valores positivos!!!!!");
+            }
             
-                if((proporcaoC1C1 + proporcaoC1C2 + proporcaoC1FA == 100) &&(proporcaoC2C1 + proporcaoC2C2 + proporcaoC2FA == 100) ){                    
-                    proporcaoCorreta = true;                    
-                }else{
-                    JOptionPane.showMessageDialog(null, "PROPORÇÃO SÓ ATÉ 100% e apenas valores positivos!!!!!");
-                }
-            
-            
+
             //verificar a quantidade de simulacao, caso do 59!
             
-            tempoSimulacao = Integer.parseInt(jTextField1.getText());
-            if(proporcaoCorreta){
+            if (proporcaoCorreta && tempoSimulacao <= 59) {
                 definido = true;
                 this.dispose();
-                
+
             }
-                
-                
-           
-            
 
-            
-        }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(null,"INSERIR APENAS NÚMEROS!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "INSERIR APENAS NÚMEROS!");
 
-            
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed

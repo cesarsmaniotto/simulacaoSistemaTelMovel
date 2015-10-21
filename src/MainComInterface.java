@@ -74,7 +74,7 @@ public class MainComInterface {
         FormProporcaoTipoChamada fp;
         fp = jp.getProporcao();
         //tempoSimulação = fp.getTempoSimulacao();                
-        tempoSimulação = 50;
+        tempoSimulação = 15;
         //Fachada fachada = new Fachada();
         fachada.definirTempoSimulacao(LocalTime.of(0, tempoSimulação, 0));
 

@@ -6,6 +6,7 @@
 package visao;
 
 import controle.ProgressoSimulacao;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JTable;
@@ -407,7 +408,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
-
+    private ArrayList<String> tempo = new ArrayList<>();
+    private ArrayList<Integer> ocupa1 = new ArrayList<>();
+    private ArrayList<Integer> ocupa2 = new ArrayList<>();
     @Override
     public void update(Observable o, Object arg) {
         System.out.println("chegou");
@@ -415,7 +418,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
         DefaultTableModel model= (DefaultTableModel)table.getModel();
         Object[] linha;        
         InformacoesLogica il;
+        
         Evento evento;/*
+        
         if(arg instanceof Estado && !pausado){
             estado = (Estado) arg;
             infoEstado = true;
@@ -425,6 +430,16 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
         }*/
         if(arg instanceof InformacoesLogica && !pausado){
             il = (InformacoesLogica) arg;
+            String tempo1 = il.getInfoEstado()[2];
+            this.tempo.add(tempo1);
+            this.ocupa1.add(Integer.parseInt(il.getInfoEstado()[0]));
+            this.ocupa2.add(Integer.parseInt(il.getInfoEstado()[1]));
+            
+            /*
+        infosEstado[0] = Integer.toString(estado.getOcupacaoCanal("C1"));
+        infosEstado[1] = Integer.toString(estado.getOcupacaoCanal("C2"));
+        infosEstado[2] = estado.getTempoInicio().toString();*/
+            
             linha = new Object[]{indiceTable,il.getInfoEvento()[0],il.getInfoEvento()[1],il.getInfoEstado()[0],il.getInfoEstado()[1],il.getInfoEstado()[2]};
             model.insertRow(indiceTable, linha);
             indiceTable++;
@@ -437,6 +452,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
     Guia guia;
     public void gerarRelatorio(String s, float[] eixoX, float[] eixoY){
         guia = new Guia();
+        guia.ocupa1 = ocupa1;
+        guia.ocupa2 = ocupa2;
+        guia.tempo = tempo;
         guia.setRelatorio(s);
         
     }
