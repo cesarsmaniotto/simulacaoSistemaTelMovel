@@ -6,6 +6,8 @@
 package visao;
 
 import java.util.InputMismatchException;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import modelo.distribuicao.Constante;
 import modelo.distribuicao.Distribuicao;
 import modelo.distribuicao.Exponencial;
@@ -146,6 +148,11 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
         });
 
         jButton2.setText("CANCEL");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -213,6 +220,7 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
                     a = Double.parseDouble(jTextField1.getText());
                     b = Double.parseDouble(jTextField2.getText());
                     c = Double.parseDouble(jTextField3.getText());
+                    jTextField1.selectAll();
                     distrib = new Triangular(a, c, b);
                     definido = true;
                     break;
@@ -241,15 +249,21 @@ public class FormDuracaoChamada extends javax.swing.JFrame {
                 default:
                     break;
             }
-        }catch(InputMismatchException e){
+            this.dispose();
+        }catch(NumberFormatException e){
             //inserir a mensagem num text
-            System.out.println("errro que nao deveria acontecer!");
+            JOptionPane.showMessageDialog(null,"INSERIR APENAS NÚMEROS!");
             
         }
-        this.dispose();
+        
         
             
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton2MouseClicked
     
     public boolean estaDefinido(){
         return definido;

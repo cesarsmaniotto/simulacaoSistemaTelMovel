@@ -6,6 +6,7 @@
 package visao;
 
 import java.util.InputMismatchException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -168,6 +169,8 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
         });
 
         jButton1.setText("OK");
+        jButton1.setMaximumSize(new java.awt.Dimension(31, 31));
+        jButton1.setMinimumSize(new java.awt.Dimension(31, 31));
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
@@ -180,6 +183,16 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
         });
 
         jButton2.setText("CANCEL");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Tempo simulação");
         jLabel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -195,8 +208,8 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
                         .addComponent(jLabel7))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(114, 114, 114)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
                         .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -284,7 +297,7 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
                     .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addContainerGap())
         );
@@ -325,24 +338,41 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField11ActionPerformed
 /*VERIFICAR PROPORCAO PARA 100% E NUMEROS NEGATIVOS!!!*/
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        boolean proporcaoCorreta = false;
         try{
-            proporcaoC1FA = Integer.parseInt(jTextField9.getText());
-            proporcaoC1C2 = Integer.parseInt(jTextField8.getText());
-            proporcaoC1C1 = Integer.parseInt(jTextField7.getText());            
+                proporcaoC1FA = Integer.parseInt(jTextField9.getText());
+                proporcaoC1C2 = Integer.parseInt(jTextField8.getText());
+                proporcaoC1C1 = Integer.parseInt(jTextField7.getText());            
+                proporcaoC2C2 = Integer.parseInt(jTextField4.getText());
+                proporcaoC2C1 = Integer.parseInt(jTextField5.getText());
+                proporcaoC2FA = Integer.parseInt(jTextField6.getText());   
+                qttLinhasC1 = Integer.parseInt(jTextField10.getText());
+                qttLinhasC2 = Integer.parseInt(jTextField11.getText());
             
-            proporcaoC2C2 = Integer.parseInt(jTextField4.getText());
-            proporcaoC2C1 = Integer.parseInt(jTextField5.getText());
-            proporcaoC2FA = Integer.parseInt(jTextField6.getText());
-            qttLinhasC1 = Integer.parseInt(jTextField10.getText());
-            qttLinhasC2 = Integer.parseInt(jTextField11.getText());
+                if((proporcaoC1C1 + proporcaoC1C2 + proporcaoC1FA == 100) &&(proporcaoC2C1 + proporcaoC2C2 + proporcaoC2FA == 100) ){                    
+                    proporcaoCorreta = true;                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "PROPORÇÃO SÓ ATÉ 100% e apenas valores positivos!!!!!");
+                }
+            
+            
+            //verificar a quantidade de simulacao, caso do 59!
+            
             tempoSimulacao = Integer.parseInt(jTextField1.getText());
-            definido = true;
-            this.dispose();
+            if(proporcaoCorreta){
+                definido = true;
+                this.dispose();
+                
+            }
+                
+                
+           
             
 
             
-        }catch(InputMismatchException e){
-            
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"INSERIR APENAS NÚMEROS!");
+
             
         }
     }//GEN-LAST:event_jButton1MouseClicked
@@ -351,6 +381,15 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
