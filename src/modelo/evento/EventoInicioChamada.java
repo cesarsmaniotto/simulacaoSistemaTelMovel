@@ -71,4 +71,10 @@ public class EventoInicioChamada extends Evento {
 		return new Estado(estadoAtual, getTempoInicio());
 
 	}
+
+        @Override
+        public String toString() {
+            return idCelula;
+        }
+        
 }

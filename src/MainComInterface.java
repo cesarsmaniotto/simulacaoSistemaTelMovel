@@ -21,8 +21,7 @@ public class MainComInterface {
     public static void main(String[] args) {
 
         JanelaPrincipal jp = new JanelaPrincipal();
-        jp.setVisible(true);
-        boolean valor = jp.definido;
+        jp.setVisible(true);        
         Fachada fachada = new Fachada();
         
         while (true) {
@@ -36,25 +35,24 @@ public class MainComInterface {
                 prepararSimulacao(fachada, jp);
                 //adiciona a janela principal como observador
                 fachada.adicionarObservador(jp);
-                fachada.informarObservado(jp);
-                
-                
+                //fachada.informarObservado(jp);
                 fachada.iniciarSimulacao();
                 
                 while(!fachada.fimSimulacao()){
+                    fachada.definirVelocidade(jp.velocidade);
                     if(jp.pausado){
                         fachada.pausarSimulacao();
                     }else{
                         fachada.continuarSimulacao();
-                        
-                        jp.definido = false;
 
                     }
                     
                 }
+                jp.definido = false;
                 
-                fachada.obterRelatorio();
-              
+                
+                jp.gerarRelatorio(fachada.obterRelatorio(), null, null);
+                
               //  fachada.pausarSimulacao();
 
                 

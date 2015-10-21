@@ -50,4 +50,10 @@ public class EventoMudancaCanal extends Evento {
 
 		return new Estado(estadoAtual, getTempoInicio());
 	}
+
+    @Override
+    public String toString() {
+        return chamada.getOrigem().getId()+chamada.getDestino().getId()+" "+chamada.getTempoDuracao();
+    }
+        
 }

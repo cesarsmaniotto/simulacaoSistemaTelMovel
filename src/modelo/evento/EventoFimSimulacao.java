@@ -18,4 +18,10 @@ public class EventoFimSimulacao extends Evento{
 		return new Estado(estadoAtual, getTempoInicio());
 	}
 
+    @Override
+    public String toString() {
+        return "FIM";
+    }
+        
+
 }

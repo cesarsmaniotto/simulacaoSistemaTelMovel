@@ -14,6 +14,7 @@ public class Fachada {
 
 	Cluster cluster;
 	CalendarioEventos calEventos;
+        HistoricoEstados historicoEstados;
 
 	/**
 	 * 
@@ -26,8 +27,13 @@ public class Fachada {
 	public void definirTempoSimulacao(LocalTime tempoSimulacao) {
 
 		calEventos = new CalendarioEventos(tempoSimulacao, cluster);
+                historicoEstados = new HistoricoEstados(tempoSimulacao);
 
 	}
+        
+        public void definirVelocidade(int velocidade){
+            calEventos.alterarVelocidade(velocidade);
+        }
 
 	public void definirTemposChamada(String idCelula,
 			float percentualComecaTermina, float percentualMudaCelula,
@@ -77,7 +83,7 @@ public class Fachada {
 		calEventos.setPausado(false);
 	}
 
-	public void obterRelatorio() {
+	public String obterRelatorio() {
 
 		while (calEventos.isAlive()) {
 			try {
@@ -123,6 +129,7 @@ public class Fachada {
 		}
 		
 		System.out.println(strBuilder);
+                return strBuilder.toString();
 	}
         //comunica-se com o calendario sem misturar interface e modelo
         public void adicionarObservador(Observer ob){
@@ -135,13 +142,16 @@ public class Fachada {
         }
 
     public void informarObservado(JanelaPrincipal jp) {
-        jp.adicionarObservadorProgresso(this.calEventos);
+        //jp.adicionarObservadorProgresso(this.calEventos);
     }
     public CalendarioEventos infomarObservador(){
         return calEventos;
     }
     public boolean fimSimulacao(){
         return calEventos.ehFimSimulacao();
+    }
+    public HistoricoEstados obterHistorico(){
+        return calEventos.getHistorico();
     }
     
     

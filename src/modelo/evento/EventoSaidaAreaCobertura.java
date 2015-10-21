@@ -37,6 +37,12 @@ public class EventoSaidaAreaCobertura extends Evento {
 		
 	}
 
+    @Override
+    public String toString() {
+        return chamada.getOrigem().getId()+"FA "+chamada.getTempoDuracao();
+    }
+        
+
 
 
 	

@@ -25,4 +25,10 @@ public class EventoInicioSimulacao extends Evento{
 		return new Estado(estadoAtual, getTempoInicio());
 	}
 
+    @Override
+    public String toString() {
+        return "INICIO";
+    }
+        
+
 }
