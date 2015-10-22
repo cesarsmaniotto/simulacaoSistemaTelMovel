@@ -5,7 +5,7 @@
  */
 package visao;
 
-import controle.ProgressoSimulacao;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -27,7 +27,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
      * Creates new form JanelaPrincipal
      */
     private Distribuicao ds;
-    private ProgressoSimulacao ps;
+    
     private FormTEC  ftc;
     private FormDuracaoChamada fdc1,fdc2;
     private FormProporcaoTipoChamada fpt;
@@ -40,7 +40,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
 
     public JanelaPrincipal() {
         initComponents();
-        ps = new ProgressoSimulacao();
+        
     }    
     
     public double getTEC1(){
@@ -317,7 +317,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        ps.notifyObservers(false);
+        
         pausado = false;
     }//GEN-LAST:event_jButton3MouseClicked
     
@@ -447,7 +447,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
     }
 
     public void adicionarObservadorProgresso(Observer ob) {
-        ps.addObserver(ob);
+        
     }
     Guia guia;
     public void gerarRelatorio(String s){

@@ -4,6 +4,8 @@ import modelo.GeradorVariavelAleatoria;
 import modelo.distribuicao.Exponencial;
 import modelo.distribuicao.Uniforme;
 import controle.Fachada;
+import visao.FormProporcaoTipoChamada;
+import visao.JanelaPrincipal;
 
 
 
@@ -25,6 +27,10 @@ public class Main {
 		String c2 = "C2";
 		
 		Fachada fachada = new Fachada();
+                
+                
+        
+                
 		
 		fachada.definirTempoSimulacao(LocalTime.of(0, 30, 0));
 		
@@ -39,23 +45,7 @@ public class Main {
 		
 		fachada.iniciarSimulacao();
 		
-		try {
-			Thread.currentThread().sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		fachada.pausarSimulacao();
-		
-		try {
-			Thread.currentThread().sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		fachada.continuarSimulacao();
 		
 		fachada.obterRelatorio();
 	}

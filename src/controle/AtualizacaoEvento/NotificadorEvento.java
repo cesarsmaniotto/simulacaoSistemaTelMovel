@@ -5,7 +5,7 @@
  */
 package controle.AtualizacaoEvento;
 
-import controle.ProgressoSimulacao;
+
 import java.util.Observable;
 import java.util.Observer;
 import modelo.Estado;
@@ -36,14 +36,6 @@ public class NotificadorEvento extends Observable{
         setChanged();
         
     }
-    public void notificarProgresso(ProgressoSimulacao ps){
-        notifyObservers(ps);
-        setChanged();
-        
-    }
-
-    
-
     public void notificarInformacoes(InformacoesLogica il) {
         notifyObservers(il);
         setChanged();
