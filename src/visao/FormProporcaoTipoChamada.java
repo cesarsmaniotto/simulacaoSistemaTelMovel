@@ -359,7 +359,7 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
             tempoSimulacao = Integer.parseInt(jTextField1.getText());
 
 
-            if ((proporcaoC1C1 + proporcaoC1C2 + proporcaoC1FA == 100) && (proporcaoC2C1 + proporcaoC2C2 + proporcaoC2FA == 100) && tempoSimulacao <= 59) {
+            if ((proporcaoC1C1 + proporcaoC1C2 + proporcaoC1FA == 100) && (proporcaoC2C1 + proporcaoC2C2 + proporcaoC2FA == 100)) {
                 proporcaoCorreta = true;
             } else {
                 JOptionPane.showMessageDialog(null, "Inserir PROPORÇÃO SÓ ATÉ 100% e apenas valores positivos!");

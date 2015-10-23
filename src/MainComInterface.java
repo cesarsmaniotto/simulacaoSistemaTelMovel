@@ -26,7 +26,7 @@ public class MainComInterface {
         
         while (true) {
             try {
-                Thread.currentThread().sleep(1);
+                Thread.currentThread().sleep(20);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
