@@ -334,10 +334,10 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
 
     private void jTabbedPane9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane9MouseClicked
         int opt = jTabbedPane9.getSelectedIndex();
-        //if ((guia != null && pausado && opt == 4) || (!execucaoSimulacao && opt == 4 && guia!= null)) {
-           //              guia.setVisible(true);
-        //}
-        
+        if ((guia != null && pausado && opt == 4) ) {
+                         guia.setVisible(true);
+        }
+        if(!execucaoSimulacao){
             switch (opt) {
                 case 0:                    
                     fpt = new FormProporcaoTipoChamada();
@@ -355,17 +355,17 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
                     fdc2 = new FormDuracaoChamada();
                     fdc2.setVisible(true);
                     break;
-                case 4:
+                /*case 4:
                     if(guia != null)
                         guia.setVisible(true);
                     
                     
-                    break;
+                    break;*/
                 default:
                     break;
 
             }
-        
+        }
 
     }//GEN-LAST:event_jTabbedPane9MouseClicked
 
