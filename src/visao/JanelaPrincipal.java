@@ -58,6 +58,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
     public double getTEC1() {
         return ftc.getTECC1();
     }
+    public boolean ehConstante(){
+        return ftc.getConst();
+    }
 
     public double getTEC2() {
         return ftc.getTECC2();
@@ -355,12 +358,18 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
                     fdc2 = new FormDuracaoChamada();
                     fdc2.setVisible(true);
                     break;
-                /*case 4:
-                    if(guia != null)
+                case 4:
+                    
+                    if(guia != null){
+                        guia = new Guia();
+                        guia.setRelatorio(relatorio);
                         guia.setVisible(true);
+                        
+                    }
+                        
                     
                     
-                    break;*/
+                    break;
                 default:
                     break;
 

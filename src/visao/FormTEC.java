@@ -24,7 +24,9 @@ public class FormTEC extends javax.swing.JFrame {
     public FormTEC() {
         initComponents();
     }
-
+    public boolean getConst(){
+        return constante;
+    }
     public boolean estaDefinido() {
         return definido;
     }
@@ -83,7 +85,7 @@ public class FormTEC extends javax.swing.JFrame {
         jLabel3.setText("lambda C2");
         jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Exponencial", "Constante", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Exponencial", "Constante" }));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
@@ -157,7 +159,9 @@ public class FormTEC extends javax.swing.JFrame {
                 tec1 = Double.parseDouble(jTextField1.getText());
                 tec2 = Double.parseDouble(jTextField2.getText());
                 definido = true;
-            }else{
+                constante = false;
+            }if(jComboBox1.getSelectedIndex() == 1){
+              
                 tec1 = Double.parseDouble(jTextField1.getText());
                 tec2 = Double.parseDouble(jTextField2.getText());
                 definido = true;
@@ -184,10 +188,10 @@ public class FormTEC extends javax.swing.JFrame {
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         if(jComboBox1.getSelectedIndex() == 0){            
-            jLabel2.setText("lambda 1");
+            jLabel1.setText("lambda 1");
             jLabel3.setText("lambda 2");
         }else{
-            jLabel2.setText("valor");
+            jLabel1.setText("valor");
             jLabel3.setText("valor");
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
