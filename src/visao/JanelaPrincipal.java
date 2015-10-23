@@ -101,6 +101,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
         jPanel19 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador de Chamadas");
@@ -225,6 +226,13 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
 
         jTabbedPane9.addTab("Relatório", jPanel21);
 
+        jButton1.setText("Gerar Relatorio");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -239,7 +247,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2)
                             .addComponent(jButton3)
-                            .addComponent(jButton6))
+                            .addComponent(jButton6)
+                            .addComponent(jButton1))
                         .addGap(69, 69, 69)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -272,7 +281,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
+                        .addComponent(jButton3)
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -378,6 +389,19 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
 
     }//GEN-LAST:event_jTabbedPane9MouseClicked
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        guia = new Guia();
+        if(pausado && guia != null){
+            
+            guia.setRelatorio(relatorio);
+            guia.setVisible(true);
+        }
+        if(!execucaoSimulacao && guia != null){
+            guia.setRelatorio(relatorio);
+            guia.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -414,6 +438,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
