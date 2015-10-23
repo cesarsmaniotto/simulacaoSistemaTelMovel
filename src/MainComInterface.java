@@ -5,6 +5,8 @@ import modelo.GeradorVariavelAleatoria;
 import modelo.distribuicao.Exponencial;
 
 import controle.Fachada;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.distribuicao.Uniforme;
 import visao.FormProporcaoTipoChamada;
 import visao.JanelaPrincipal;
@@ -34,6 +36,7 @@ public class MainComInterface {
             if (jp.definido) {
                 prepararSimulacao(fachada, jp);
                 jp.definido = false;
+                jp.execucaoSimulacao = true;
                 //adiciona a janela principal como observador
                 fachada.adicionarObservador(jp);                
                 fachada.iniciarSimulacao();
@@ -50,12 +53,10 @@ public class MainComInterface {
                     }
                 }
                 
+                jp.execucaoSimulacao = false;
+                jp.habilitarInicio();
                 
                 jp.gerarRelatorio(fachada.obterRelatorio());
-                
-              
-
-                
 
         
 

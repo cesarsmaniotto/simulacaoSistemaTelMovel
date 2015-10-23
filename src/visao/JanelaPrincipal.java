@@ -30,9 +30,10 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
     private FormTEC ftc;
     private FormDuracaoChamada fdc1, fdc2;
     private FormProporcaoTipoChamada fpt;
-    
+
     public boolean definido = false;
     public boolean pausado = false;
+    public boolean execucaoSimulacao = false;
     private int indiceTable;
     public int velocidade = 550;
     private ArrayList<String> tempo = new ArrayList<>();
@@ -125,6 +126,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
 
         jTextField2.setEditable(false);
         jTextField2.setText("Definir proporção de chamadas, tempo de simulação, tempo entre chegadas e duração de chamadas.");
+
+        jScrollPane2.setAutoscrolls(true);
 
         table.setAutoCreateRowSorter(true);
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -293,6 +296,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
             if (fpt.estaDefinido() && fdc1.estaDefinido() && ftc.estaDefinido() && fdc2.estaDefinido()) {
                 msg += "Iniciando simulacao";
                 definido = true;
+                jButton6.setVisible(false);
                 DefaultTableModel dm = (DefaultTableModel) table.getModel();
 
                 while (dm.getRowCount() > 0) {
@@ -330,32 +334,39 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
 
     private void jTabbedPane9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane9MouseClicked
         int opt = jTabbedPane9.getSelectedIndex();
-        switch (opt) {
-            case 0:
-                fpt = new FormProporcaoTipoChamada();
-                fpt.setVisible(true);
-                break;
-            case 1:
-                ftc = new FormTEC();
-                ftc.setVisible(true);
-                break;
-            case 2:
-                fdc1 = new FormDuracaoChamada();
-                fdc1.setVisible(true);
-                break;
-            case 3:
-                fdc2 = new FormDuracaoChamada();
-                fdc2.setVisible(true);
-                break;
-            case 4:
-                if (guia != null) {
-                    guia.setVisible(true);
-                }
-                break;
-            default:
-                break;
+        //if ((guia != null && pausado && opt == 4) || (!execucaoSimulacao && opt == 4 && guia!= null)) {
+           //              guia.setVisible(true);
+        //}
+        
+            switch (opt) {
+                case 0:                    
+                    fpt = new FormProporcaoTipoChamada();
+                    fpt.setVisible(true);
+                    break;
+                case 1:
+                    ftc = new FormTEC();
+                    ftc.setVisible(true);
+                    break;
+                case 2:
+                    fdc1 = new FormDuracaoChamada();
+                    fdc1.setVisible(true);
+                    break;
+                case 3:
+                    fdc2 = new FormDuracaoChamada();
+                    fdc2.setVisible(true);
+                    break;
+                case 4:
+                    if(guia != null)
+                        guia.setVisible(true);
+                    
+                    
+                    break;
+                default:
+                    break;
 
-        }
+            }
+        
+
     }//GEN-LAST:event_jTabbedPane9MouseClicked
 
     /**
@@ -427,6 +438,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
 
             linha = new Object[]{indiceTable, il.getInfoEvento(), il.getInfoEstado()[0], il.getInfoEstado()[1], il.getInfoEstado()[2]};
             model.insertRow(indiceTable, linha);
+            table.scrollRectToVisible(table.getCellRect(table.getRowCount() - 1, 0, true));
+
             indiceTable++;
         }
     }
@@ -434,13 +447,21 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
     public void adicionarObservadorProgresso(Observer ob) {
 
     }
-
+    private String relatorio = "";
     public void gerarRelatorio(String s) {
         guia = new Guia();
         guia.ocupa1 = ocupa1;
         guia.ocupa2 = ocupa2;
         guia.tempo = tempo;
+        this.relatorio = s;
         guia.setRelatorio(s);
+        if(!execucaoSimulacao){
+            guia.setVisible(true);
+        }
 
+    }
+
+    public void habilitarInicio() {
+        jButton6.setVisible(true);
     }
 }
