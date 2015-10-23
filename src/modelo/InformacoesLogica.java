@@ -22,7 +22,7 @@ import modelo.evento.EventoSaidaAreaCobertura;
  * é possível notificar o estado e evento, mas isso seria incorreto. De modo que a interface teria acesso aos objetos da logica
  */
 public class InformacoesLogica {
-    String[] infosEvento = new String[2];
+    String infosEvento;
     String[] infosEstado = new String[3];
     public InformacoesLogica(){
         /*infosEstado = new String[3];
@@ -32,22 +32,21 @@ public class InformacoesLogica {
     }
     public void defineInformacoes(Evento evento, Estado estado){
         
-        if((evento instanceof EventoInicioChamada)){
-            this.infosEvento[0] = "INICIO:"+((EventoInicioChamada) evento).toString();
-            this.infosEvento[1] = "-";
+        /*if((evento instanceof EventoInicioChamada)){
+            this.infosEvento = ((EventoInicioChamada) evento).toString();
+            
         }
         if(evento instanceof EventoFimSimulacao){
-            this.infosEvento[0] = evento.toString();
-            this.infosEvento[1] = "-";
+            this.infosEvento = evento.toString();
+         
         }
         if(evento instanceof EventoFimChamada || (evento instanceof EventoMudancaCanal) || (evento instanceof EventoSaidaAreaCobertura)){
-            this.infosEvento = evento.toString().split(" ");
+            this.infosEvento = evento.toString();
         }
         if(evento instanceof EventoInicioSimulacao){
-            this.infosEvento[0] = "INICIO";
-            this.infosEvento[1] = "-";
-        }
-        
+            this.infosEvento = "INICIO";
+        }*/
+        infosEvento = evento.toString();
         infosEstado[0] = Integer.toString(estado.getOcupacaoCanal("C1"));
         infosEstado[1] = Integer.toString(estado.getOcupacaoCanal("C2"));
         infosEstado[2] = estado.getTempoInicio().toString();
@@ -55,7 +54,7 @@ public class InformacoesLogica {
         
         
     }
-    public String[] getInfoEvento(){
+    public String getInfoEvento(){
         return infosEvento;
     }
     public String[] getInfoEstado(){

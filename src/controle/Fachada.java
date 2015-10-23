@@ -121,7 +121,7 @@ public class Fachada {
 
 		}
 		
-		System.out.println(strBuilder);
+		//System.out.println(strBuilder);
                 return strBuilder.toString();
 	}
         //comunica-se com o calendario sem misturar interface e modelo

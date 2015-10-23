@@ -79,8 +79,11 @@ public class EventoInicioChamada extends Evento {
 
         @Override
         public String toString() {
-            
-            return idCelula;
+            if(chamada.getTipo() == TipoChamada.TERMINA_FORA_DA_AREA_DE_COBERTURA){
+                return "INICIO:"+chamada.getOrigem().getId()+"FA";
+ 
+            }
+            return "INICIO:"+chamada.getOrigem().getId()+chamada.getDestino().getId();
         }
         
 }

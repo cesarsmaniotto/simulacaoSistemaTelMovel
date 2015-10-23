@@ -6,6 +6,7 @@
 package visao;
 
 import java.util.InputMismatchException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,23 +18,23 @@ public class FormTEC extends javax.swing.JFrame {
      * Creates new form FormTEC
      */
     private boolean definido;
-    private double tec1,tec2;
+    private double tec1, tec2;
 
-        
     public FormTEC() {
         initComponents();
     }
-    public boolean estaDefinido(){
+
+    public boolean estaDefinido() {
         return definido;
     }
-    public double getTECC1(){
+
+    public double getTECC1() {
         return tec1;
     }
-    public double getTECC2(){
+
+    public double getTECC2() {
         return tec2;
     }
-            
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -135,11 +136,13 @@ public class FormTEC extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         try {
-           tec1 = Double.parseDouble(jTextField1.getText());
-           tec2 = Double.parseDouble(jTextField2.getText());
-           definido = true;
-           this.dispose();
-        } catch (InputMismatchException e) {
+            tec1 = Double.parseDouble(jTextField1.getText());
+            tec2 = Double.parseDouble(jTextField2.getText());
+            definido = true;
+            this.dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "INSERIR NÚMEROS!");
+
         }
 
     }//GEN-LAST:event_jButton1MouseClicked

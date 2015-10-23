@@ -110,7 +110,10 @@ public class Guia extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         Grafico gra = new Grafico();
         gra.criarDados(tempo, ocupa1);
+        //gra.criarDadosTemporais(tempo, ocupa1);
+        
         gra.criarGrafico("Ocupacao C1");
+        //gra.criarGraficoTempo("teste");
         gra.setVisible(true);
         
     }//GEN-LAST:event_jButton1MouseClicked

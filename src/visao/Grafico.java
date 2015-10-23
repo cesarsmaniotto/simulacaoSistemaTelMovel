@@ -12,6 +12,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYDataset;
 
 
 
@@ -33,19 +34,12 @@ public class Grafico extends javax.swing.JFrame {
     
     public void criarDados(ArrayList<String> tempo,ArrayList<Integer> ocupacao){
         for(int i = 0; i < tempo.size();i++){
+            
             dataset.addValue(ocupacao.get(i),"ocupacao",tempo.get(i));
         }
         
     }
-    private CategoryDataset criarDados(){
-        
-        dataset.addValue(100, "x", "y");
-        
-        dataset.addValue(200, "x+1", "y+1");
-        dataset.addValue(300, "x+2", "y+2");
-        dataset.addValue(400, "x+3", "y+3");
-        return dataset;
-    }
+    
     public void criarGrafico(String nomeGrafico){
         CategoryDataset cds = dataset;
         String title = nomeGrafico;
@@ -54,9 +48,11 @@ public class Grafico extends javax.swing.JFrame {
         boolean legenda = true;
         boolean urls = true;
         boolean dicas = true;
-        JFreeChart grafico = ChartFactory.createBarChart3D(title, "tempo", y, cds,PlotOrientation.VERTICAL,legenda,dicas,urls);
+        //JFreeChart grafico = ChartFactory.createBarChart(title, "tempo", y, cds,PlotOrientation.HORIZONTAL,legenda,dicas,urls);
+        JFreeChart grafico = ChartFactory.createBarChart3D(title, "tempo", y, cds,PlotOrientation.HORIZONTAL,legenda,dicas,urls);
         ChartPanel myCP = new ChartPanel(grafico,true);
-        myCP.setSize(jPanel1.getWidth(),jPanel1.getHeight());
+        
+        myCP.setSize(800,800);
         
         
         jPanel1.removeAll();
@@ -64,23 +60,6 @@ public class Grafico extends javax.swing.JFrame {
         jPanel1.revalidate();
         jPanel1.repaint();
     }
-    /*public void criaGrafico() {
-CategoryDataset cds = createDataset();
-String titulo = "Gráfico de Teste";
-String eixoy = "Valores";
-String txt_legenda = "Ledenda:";
-boolean legenda = true;
-boolean tooltips = true;
-boolean urls = true;
-JFreeChart graf = ChartFactory.createBarChart3D(titulo, txt_legenda, eixoy, cds, PlotOrientation.VERTICAL, legenda, tooltips, urls);
-ChartPanel myChartPanel = new ChartPanel(graf, true);
-myChartPanel.setSize(jPanel1.getWidth(),jPanel1.getHeight());
-myChartPanel.setVisible(true); 
-jPanel1.removeAll();
-jPanel1.add(myChartPanel); 
-jPanel1.revalidate();
-jPanel1.repaint(); 
-}*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,18 +73,20 @@ jPanel1.repaint();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1024, 768));
 
         jPanel1.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        jPanel1.setMinimumSize(new java.awt.Dimension(800, 600));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 524, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 445, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -113,8 +94,8 @@ jPanel1.repaint();
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
@@ -166,4 +147,8 @@ jPanel1.repaint();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private JFreeChart criarGraficoTempo(XYDataset dataset) {
+            return ChartFactory.createTimeSeriesChart("Computing Test", "Seconds", "Value",dataset,false,false,false);
+    }
 }

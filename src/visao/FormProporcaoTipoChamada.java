@@ -98,6 +98,7 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -198,6 +199,8 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
         jLabel11.setText("Tempo simulação");
         jLabel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel12.setText("minutos");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -255,8 +258,10 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField6)))))
+                                            .addComponent(jLabel12)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField6))))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addGap(66, 66, 66)))))
@@ -285,7 +290,9 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -355,20 +362,17 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
             if ((proporcaoC1C1 + proporcaoC1C2 + proporcaoC1FA == 100) && (proporcaoC2C1 + proporcaoC2C2 + proporcaoC2FA == 100) && tempoSimulacao <= 59) {
                 proporcaoCorreta = true;
             } else {
-                JOptionPane.showMessageDialog(null, "PROPORÇÃO SÓ ATÉ 100%,tempo maximo até 59 min e apenas valores positivos!!!!!");
+                JOptionPane.showMessageDialog(null, "Inserir PROPORÇÃO SÓ ATÉ 100% e apenas valores positivos!");
             }
             
-
-            //verificar a quantidade de simulacao, caso do 59!
-            
-            if (proporcaoCorreta && tempoSimulacao <= 59) {
+            if (proporcaoCorreta) {
                 definido = true;
                 this.dispose();
 
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "INSERIR APENAS NÚMEROS!");
+            JOptionPane.showMessageDialog(null, "INSERIR NÚMEROS!");
 
         }
     }//GEN-LAST:event_jButton1MouseClicked
@@ -429,6 +433,7 @@ public class FormProporcaoTipoChamada extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

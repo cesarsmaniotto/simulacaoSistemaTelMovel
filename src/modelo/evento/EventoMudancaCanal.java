@@ -53,7 +53,7 @@ public class EventoMudancaCanal extends Evento {
 
     @Override
     public String toString() {
-        return chamada.getOrigem().getId()+chamada.getDestino().getId()+" "+chamada.getTempoDuracao();
+        return "MUDANCA:"+chamada.getOrigem().getId()+chamada.getDestino().getId();
     }
         
 }

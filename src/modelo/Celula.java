@@ -7,137 +7,141 @@ import java.util.List;
 
 public class Celula {
 
-	private int nroCanais;
-	private String id;
-	private List<Long> listaTemposChamada;
-	private int qttLigacoesCompletadas;
-	private int qttLigacoesPerdidasFaltaDeCanais;
-	private int qttLigacoesPerdidasForaDeArea;
-	private List<Celula> conexoes;
-	private SorteioDeChamadas geradorDeChamadas;
-	private GeradorVariavelAleatoria tempoEntreChamadas;
+    private int nroCanais;
+    private String id;
+    private List<Long> listaTemposChamada;
+    private int qttLigacoesCompletadas;
+    private int qttLigacoesPerdidasFaltaDeCanais;
+    private int qttLigacoesPerdidasForaDeArea;
+    private List<Celula> conexoes;
+    private SorteioDeChamadas geradorDeChamadas;
+    private GeradorVariavelAleatoria tempoEntreChamadas;
 
-	/**
-	 * 
-	 */
-	public Celula(String id) {
-		this.id = id;
-		this.qttLigacoesCompletadas = 0;
-		this.qttLigacoesPerdidasFaltaDeCanais = 0;
-		this.qttLigacoesPerdidasForaDeArea = 0;
-		this.listaTemposChamada = new ArrayList<Long>();
+    /**
+     *
+     */
+    public Celula(String id) {
+        this.id = id;
+        this.qttLigacoesCompletadas = 0;
+        this.qttLigacoesPerdidasFaltaDeCanais = 0;
+        this.qttLigacoesPerdidasForaDeArea = 0;
+        this.listaTemposChamada = new ArrayList<Long>();
 
+    }
 
-	}
+    public int getNroCanais() {
+        return nroCanais;
+    }
 
-	public int getNroCanais() {
-		return nroCanais;
-	}
+    public void setNroCanais(int nroCanais) {
+        this.nroCanais = nroCanais;
+    }
 
-	public void setNroCanais(int nroCanais) {
-		this.nroCanais = nroCanais;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public List<Celula> getConexoes() {
+        return conexoes;
+    }
 
-	public List<Celula> getConexoes() {
-		return conexoes;
-	}
+    public void setConexoes(List<Celula> conexoes) {
+        this.conexoes = conexoes;
+    }
 
-	public void setConexoes(List<Celula> conexoes) {
-		this.conexoes = conexoes;
-	}
+    public List<Long> getListaTemposChamada() {
+        return listaTemposChamada;
+    }
 
-	public List<Long> getListaTemposChamada() {
-		return listaTemposChamada;
-	}
+    public void setListaTemposChamada(List<Long> listaTemposChamada) {
+        this.listaTemposChamada = listaTemposChamada;
+    }
 
-	public void setListaTemposChamada(List<Long> listaTemposChamada) {
-		this.listaTemposChamada = listaTemposChamada;
-	}
+    public int getQttLigacoesCompletadas() {
+        return qttLigacoesCompletadas;
+    }
 
-	public int getQttLigacoesCompletadas() {
-		return qttLigacoesCompletadas;
-	}
+    public int getQttLigacoesPerdidasFaltaDeCanais() {
+        return qttLigacoesPerdidasFaltaDeCanais;
+    }
 
-	public int getQttLigacoesPerdidasFaltaDeCanais() {
-		return qttLigacoesPerdidasFaltaDeCanais;
-	}
+    public int getQttLigacoesPerdidasForaDeArea() {
+        return qttLigacoesPerdidasForaDeArea;
+    }
 
-	public int getQttLigacoesPerdidasForaDeArea() {
-		return qttLigacoesPerdidasForaDeArea;
-	}
+    public SorteioDeChamadas getGeradorDeChamadas() {
+        return geradorDeChamadas;
+    }
 
+    public void setGeradorDeChamadas(SorteioDeChamadas geradorDeChamadas) {
+        this.geradorDeChamadas = geradorDeChamadas;
+    }
 
-	public SorteioDeChamadas getGeradorDeChamadas() {
-		return geradorDeChamadas;
-	}
+    public GeradorVariavelAleatoria getTempoEntreChamadas() {
+        return tempoEntreChamadas;
+    }
 
-	public void setGeradorDeChamadas(SorteioDeChamadas geradorDeChamadas) {
-		this.geradorDeChamadas = geradorDeChamadas;
-	}
+    public void setTempoEntreChamadas(GeradorVariavelAleatoria tempoEntreChamadas) {
+        this.tempoEntreChamadas = tempoEntreChamadas;
+    }
 
-	public GeradorVariavelAleatoria getTempoEntreChamadas() {
-		return tempoEntreChamadas;
-	}
+    public Chamada geraNovaChamada() {
+        return geradorDeChamadas.sorteia();
+    }
 
-	public void setTempoEntreChamadas(GeradorVariavelAleatoria tempoEntreChamadas) {
-		this.tempoEntreChamadas = tempoEntreChamadas;
-	}
+    public long tempoParaNovaChamada() {
+        return (long) tempoEntreChamadas.gera();
+    }
 
+    public void incrementaLigacoesPerdidasFaltaDeCanais() {
+        qttLigacoesPerdidasFaltaDeCanais += 1;
+    }
 
-	public Chamada geraNovaChamada() {
-		return geradorDeChamadas.sorteia();
-	}
-	
-	public long tempoParaNovaChamada(){
-		return (long) tempoEntreChamadas.gera();
-	}
-	
-	public void incrementaLigacoesPerdidasFaltaDeCanais(){
-		qttLigacoesPerdidasFaltaDeCanais += 1;
-	}
-	
-	public void incrementaLigacoesPerdidasForaDeArea(){
-		qttLigacoesPerdidasForaDeArea += 1;
-	}
-	
-	public void incrementaLigacoesCompletadas(){
-		qttLigacoesCompletadas += 1;
-	}
-	
-	public void adicionaDuracaoChamada(long duracaoChamada){
-		listaTemposChamada.add(duracaoChamada);
-	}
-	
-	public LocalTime getTempoChamadaMaiorDuracao(){
-		return LocalTime.MIDNIGHT.plusSeconds(Collections.max(listaTemposChamada));
-	}
-	
-	public LocalTime getTempoChamadaMenorDuracao(){
-		return LocalTime.MIDNIGHT.plusSeconds(Collections.min(listaTemposChamada));
-	}
-	
-	public LocalTime getTempoMedioDuracaoChamada(){
-		
-		long somatorio = 0;
-		
-		for(long tempo : listaTemposChamada){
-			
-			somatorio += tempo;
-			
-		}
-		
-		return LocalTime.MIDNIGHT.plusSeconds(somatorio / listaTemposChamada.size());	
-		
-	}
-	
-	
+    public void incrementaLigacoesPerdidasForaDeArea() {
+        qttLigacoesPerdidasForaDeArea += 1;
+    }
+
+    public void incrementaLigacoesCompletadas() {
+        qttLigacoesCompletadas += 1;
+    }
+
+    public void adicionaDuracaoChamada(long duracaoChamada) {
+        listaTemposChamada.add(duracaoChamada);
+    }
+
+    public LocalTime getTempoChamadaMaiorDuracao() {
+        if (listaTemposChamada.isEmpty()) {
+            return LocalTime.MIDNIGHT.plusSeconds(0);
+        }
+        return LocalTime.MIDNIGHT.plusSeconds(Collections.max(listaTemposChamada));
+    }
+
+    public LocalTime getTempoChamadaMenorDuracao() {
+        if (listaTemposChamada.isEmpty()) {
+            return LocalTime.MIDNIGHT.plusSeconds(0);
+        }
+        return LocalTime.MIDNIGHT.plusSeconds(Collections.min(listaTemposChamada));
+    }
+
+    public LocalTime getTempoMedioDuracaoChamada() {
+
+        long somatorio = 0;
+        if(listaTemposChamada.isEmpty()){
+            return LocalTime.MIDNIGHT.plusSeconds(0);
+        }
+
+        for (long tempo : listaTemposChamada) {
+
+            somatorio += tempo;
+
+        }
+
+        return LocalTime.MIDNIGHT.plusSeconds(somatorio / listaTemposChamada.size());
+
+    }
 
 }

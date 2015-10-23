@@ -5,7 +5,6 @@
  */
 package visao;
 
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,44 +20,60 @@ import modelo.evento.Evento;
  *
  * @author rr
  */
-public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
+public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
 
     /**
      * Creates new form JanelaPrincipal
      */
     private Distribuicao ds;
-    
-    private FormTEC  ftc;
-    private FormDuracaoChamada fdc1,fdc2;
+
+    private FormTEC ftc;
+    private FormDuracaoChamada fdc1, fdc2;
     private FormProporcaoTipoChamada fpt;
-    private FormRelatorio fr;
+    
     public boolean definido = false;
     public boolean pausado = false;
     private int indiceTable;
     public int velocidade = 550;
+    private ArrayList<String> tempo = new ArrayList<>();
+    private ArrayList<Integer> ocupa1 = new ArrayList<>();
+    private ArrayList<Integer> ocupa2 = new ArrayList<>();
+    private Guia guia;
     //impedir de iniciar caso ds seja null
 
     public JanelaPrincipal() {
         initComponents();
-        
-    }    
-    
-    public double getTEC1(){
+
+    }
+
+    public boolean getDef() {
+        return definido;
+    }
+
+    public void setDef(boolean valor) {
+        this.definido = valor;
+    }
+
+    public double getTEC1() {
         return ftc.getTECC1();
     }
-    public double getTEC2(){
+
+    public double getTEC2() {
         return ftc.getTECC2();
     }
-    public Distribuicao getDistriuicaoChamadasC1(){
+
+    public Distribuicao getDistriuicaoChamadasC1() {
         return fdc1.getDistribuicao();
     }
-    public Distribuicao getDistriuicaoChamadasC2(){
+
+    public Distribuicao getDistriuicaoChamadasC2() {
         return fdc2.getDistribuicao();
     }
-    public FormProporcaoTipoChamada getProporcao(){
+
+    public FormProporcaoTipoChamada getProporcao() {
         return fpt;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,6 +99,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
         jPanel21 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Simulador de Chamadas");
         setPreferredSize(new java.awt.Dimension(800, 600));
 
         jButton2.setText("Pausar");
@@ -107,38 +123,19 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
             }
         });
 
-        jTextField2.setText("Definir tempo de simulação, proporção de ligações e duração de chamadas");
+        jTextField2.setEditable(false);
+        jTextField2.setText("Definir proporção de chamadas, tempo de simulação, tempo entre chegadas e duração de chamadas.");
 
         table.setAutoCreateRowSorter(true);
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null}
             },
             new String [] {
-                "Identificador", "Tipo Evento", "Duração", "Ocupação C1", "Ocupação C2", "Tempo atual"
+                "Identificador", "Tipo Evento", "Ocupação C1", "Ocupação C2", "Tempo atual"
             }
         ));
-        table.setColumnSelectionAllowed(true);
+        table.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(table);
 
         jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -230,9 +227,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTabbedPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTabbedPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +238,10 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -251,14 +249,14 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jTabbedPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGap(90, 90, 90)
                         .addComponent(jButton6))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
                         .addComponent(jLabel1)
                         .addGap(3, 3, 3)
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -269,7 +267,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleParent(jScrollPane2);
@@ -279,80 +277,83 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         //verificar se todos os objetos foram instanciados para poder iniciar a bagaça
-        String msg = "";      
-        
+        String msg = "";
+
         try {/*
-            if (fdc1 == null || !fdc1.estaDefinido() || fdc2 == null || !fdc2.estaDefinido()) {
-                msg += "Defina a duração de chamadas. ";
-            }
-            if (fpt == null || !fpt.estaDefinido()) {
-                msg += "Defina a proporção dos tipos de chamada e tempo de simulação. ";
-            }
-            if (ftc == null || !fpt.estaDefinido()) {
-                msg += "Defina o tempo entre chamadas.";
-            }
+             if (fdc1 == null || !fdc1.estaDefinido() || fdc2 == null || !fdc2.estaDefinido()) {
+             msg += "Defina a duração de chamadas. ";
+             }
+             if (fpt == null || !fpt.estaDefinido()) {
+             msg += "Defina a proporção dos tipos de chamada e tempo de simulação. ";
+             }
+             if (ftc == null || !fpt.estaDefinido()) {
+             msg += "Defina o tempo entre chamadas.";
+             }*/
+
             if (fpt.estaDefinido() && fdc1.estaDefinido() && ftc.estaDefinido() && fdc2.estaDefinido()) {
                 msg += "Iniciando simulacao";
                 definido = true;
+                DefaultTableModel dm = (DefaultTableModel) table.getModel();
+
+                while (dm.getRowCount() > 0) {
+                    indiceTable = 0;
+                    dm.removeRow(0);
+                }
+
             }
-            */
-            
-            definido = true;
-            
-            
-            
+
+            //definido = true;
             jTextField2.setText(msg);
-        } catch (NullPointerException e) {       
-            jTextField2.setText("define");
-            
-            
+        } catch (NullPointerException e) {
+            jTextField2.setText("Definir todos os parâmetros!");
+
         }
 
 
     }//GEN-LAST:event_jButton6MouseClicked
-        
+
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         pausado = true;
-        
+
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        
+
         pausado = false;
     }//GEN-LAST:event_jButton3MouseClicked
-    
+
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        if(!jSlider1.getValueIsAdjusting()){
-            velocidade = 1300-jSlider1.getValue()*11;
+        if (!jSlider1.getValueIsAdjusting()) {
+            velocidade = 1300 - jSlider1.getValue() * 11;
         }
     }//GEN-LAST:event_jSlider1StateChanged
 
     private void jTabbedPane9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane9MouseClicked
         int opt = jTabbedPane9.getSelectedIndex();
-        switch(opt){
+        switch (opt) {
             case 0:
-            fpt = new FormProporcaoTipoChamada();
-            fpt.setVisible(true);
-            break;
+                fpt = new FormProporcaoTipoChamada();
+                fpt.setVisible(true);
+                break;
             case 1:
-            ftc = new FormTEC();
-            ftc.setVisible(true);
-            break;
+                ftc = new FormTEC();
+                ftc.setVisible(true);
+                break;
             case 2:
-            fdc1 = new FormDuracaoChamada();
-            fdc1.setVisible(true);
-            break;
+                fdc1 = new FormDuracaoChamada();
+                fdc1.setVisible(true);
+                break;
             case 3:
-            fdc2 = new FormDuracaoChamada();
-            fdc2.setVisible(true);
-            break;
+                fdc2 = new FormDuracaoChamada();
+                fdc2.setVisible(true);
+                break;
             case 4:
-                if(guia != null){
+                if (guia != null) {
                     guia.setVisible(true);
                 }
-            break;
+                break;
             default:
-            break;
+                break;
 
         }
     }//GEN-LAST:event_jTabbedPane9MouseClicked
@@ -408,54 +409,38 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer{
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
-    private ArrayList<String> tempo = new ArrayList<>();
-    private ArrayList<Integer> ocupa1 = new ArrayList<>();
-    private ArrayList<Integer> ocupa2 = new ArrayList<>();
+
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("chegou");
-        boolean infoEstado = false;
-        DefaultTableModel model= (DefaultTableModel)table.getModel();
-        Object[] linha;        
+        jTextField2.setText("Simulação iniciada");
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        Object[] linha;
         InformacoesLogica il;
-        
-        Evento evento;/*
-        
-        if(arg instanceof Estado && !pausado){
-            estado = (Estado) arg;
-            infoEstado = true;
-            linha = new Object[]{indiceTable,"DEFINIR", "DEFINIR",estado.getOcupacaoCanal("C1"),estado.getOcupacaoCanal("C2"),estado.getTempoInicio().toString()};
-            model.insertRow(indiceTable, linha);
-            indiceTable++;
-        }*/
-        if(arg instanceof InformacoesLogica && !pausado){
+        guia = null;
+
+        if (arg instanceof InformacoesLogica && !pausado) {
             il = (InformacoesLogica) arg;
             String tempo1 = il.getInfoEstado()[2];
             this.tempo.add(tempo1);
             this.ocupa1.add(Integer.parseInt(il.getInfoEstado()[0]));
             this.ocupa2.add(Integer.parseInt(il.getInfoEstado()[1]));
-            
-            /*
-        infosEstado[0] = Integer.toString(estado.getOcupacaoCanal("C1"));
-        infosEstado[1] = Integer.toString(estado.getOcupacaoCanal("C2"));
-        infosEstado[2] = estado.getTempoInicio().toString();*/
-            
-            linha = new Object[]{indiceTable,il.getInfoEvento()[0],il.getInfoEvento()[1],il.getInfoEstado()[0],il.getInfoEstado()[1],il.getInfoEstado()[2]};
+
+            linha = new Object[]{indiceTable, il.getInfoEvento(), il.getInfoEstado()[0], il.getInfoEstado()[1], il.getInfoEstado()[2]};
             model.insertRow(indiceTable, linha);
             indiceTable++;
         }
     }
 
     public void adicionarObservadorProgresso(Observer ob) {
-        
+
     }
-    Guia guia;
-    public void gerarRelatorio(String s){
+
+    public void gerarRelatorio(String s) {
         guia = new Guia();
         guia.ocupa1 = ocupa1;
         guia.ocupa2 = ocupa2;
         guia.tempo = tempo;
         guia.setRelatorio(s);
-        
+
     }
 }

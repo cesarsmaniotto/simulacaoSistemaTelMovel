@@ -59,7 +59,7 @@ public class CalendarioEventos extends Thread{
 				fimSimulacao = true;
 			}
 			
-			System.out.println("processando evento iniciando em " + ev.getTempoInicio());
+			//System.out.println("processando evento iniciando em " + ev.getTempoInicio());
                     try {
                         sleep(velocidade);
                     } catch (InterruptedException ex) {

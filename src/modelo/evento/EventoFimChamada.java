@@ -44,7 +44,7 @@ public class EventoFimChamada extends Evento {
 
     @Override
     public String toString() {
-        return "FIM:"+chamada.getOrigem().getId()+chamada.getDestino().getId()+" "+chamada.getTempoDuracao();
+        return "FIM:"+chamada.getOrigem().getId()+chamada.getDestino().getId();
     }
         
 }
