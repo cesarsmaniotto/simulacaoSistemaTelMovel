@@ -8,13 +8,9 @@ package visao;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import modelo.Estado;
-import modelo.HistoricoEstados;
 import modelo.InformacoesLogica;
 import modelo.distribuicao.Distribuicao;
-import modelo.evento.Evento;
 
 /**
  *
@@ -44,6 +40,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
 
     public JanelaPrincipal() {
         initComponents();
+        jTabbedPane9.remove(4);
 
     }
 
@@ -105,7 +102,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador de Chamadas");
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(1024, 784));
+        setPreferredSize(new java.awt.Dimension(1024, 784));
 
         jButton2.setText("Pausar");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -155,6 +153,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
         jLabel1.setText("Velocidade");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jTabbedPane9.setToolTipText("");
         jTabbedPane9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabbedPane9MouseClicked(evt);
@@ -224,7 +223,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jTabbedPane9.addTab("Relatório", jPanel21);
+        jTabbedPane9.addTab("", jPanel21);
 
         jButton1.setText("Gerar Relatorio");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -346,61 +345,65 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
         }
     }//GEN-LAST:event_jSlider1StateChanged
 
-    private void jTabbedPane9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane9MouseClicked
-        int opt = jTabbedPane9.getSelectedIndex();
-        if ((guia != null && pausado && opt == 4) ) {
-                         guia.setVisible(true);
-        }
-        if(!execucaoSimulacao){
-            switch (opt) {
-                case 0:                    
-                    fpt = new FormProporcaoTipoChamada();
-                    fpt.setVisible(true);
-                    break;
-                case 1:
-                    ftc = new FormTEC();
-                    ftc.setVisible(true);
-                    break;
-                case 2:
-                    fdc1 = new FormDuracaoChamada();
-                    fdc1.setVisible(true);
-                    break;
-                case 3:
-                    fdc2 = new FormDuracaoChamada();
-                    fdc2.setVisible(true);
-                    break;
-                case 4:
-                    
-                    if(guia != null){
-                        guia = new Guia();
-                        guia.setRelatorio(relatorio);
-                        guia.setVisible(true);
-                        
-                    }
-                        
-                    
-                    
-                    break;
-                default:
-                    break;
-
-            }
-        }
-
-    }//GEN-LAST:event_jTabbedPane9MouseClicked
-
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         guia = new Guia();
         if(pausado && guia != null){
-            
+
             guia.setRelatorio(relatorio);
+            guia.ocupa1 = ocupa1;
+            guia.ocupa2 = ocupa2;
+            guia.tempo = tempo;
+
             guia.setVisible(true);
         }
         if(!execucaoSimulacao && guia != null){
+            guia.ocupa1 = ocupa1;
+            guia.ocupa2 = ocupa2;
+            guia.tempo = tempo;
+
             guia.setRelatorio(relatorio);
+
             guia.setVisible(true);
         }
+        ocupa1.clear();
+        ocupa2.clear();
+        tempo.clear();
+            
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jTabbedPane9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane9MouseClicked
+        int opt = jTabbedPane9.getSelectedIndex();
+        if ((guia != null && pausado && opt == 4) ) {
+            guia.setVisible(true);
+        }
+        if(!execucaoSimulacao){
+            switch (opt) {
+                case 0:
+                fpt = new FormProporcaoTipoChamada();
+                fpt.setVisible(true);
+                break;
+                case 1:
+                ftc = new FormTEC();
+                ftc.setVisible(true);
+                break;
+                case 2:
+                fdc1 = new FormDuracaoChamada();
+                fdc1.setVisible(true);
+                break;
+                case 3:
+                fdc2 = new FormDuracaoChamada();
+                fdc2.setVisible(true);
+                break;
+                case 4:
+                    
+
+                break;
+                default:
+                break;
+
+            }
+        }
+    }//GEN-LAST:event_jTabbedPane9MouseClicked
 
     /**
      * @param args the command line arguments
@@ -484,14 +487,18 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
     private String relatorio = "";
     public void gerarRelatorio(String s) {
         guia = new Guia();
+        
         guia.ocupa1 = ocupa1;
         guia.ocupa2 = ocupa2;
         guia.tempo = tempo;
         this.relatorio = s;
         guia.setRelatorio(s);
         if(!execucaoSimulacao){
-            guia.setVisible(true);
+           guia.setVisible(true);
         }
+        ocupa1.clear();
+        ocupa2.clear();
+        tempo.clear();
 
     }
 
