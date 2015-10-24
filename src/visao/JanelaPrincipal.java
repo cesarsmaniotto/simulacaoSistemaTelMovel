@@ -51,17 +51,19 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
     public void setDef(boolean valor) {
         this.definido = valor;
     }
-
-    public double getTEC1() {
-        return ftc.getTECC1();
+    public Distribuicao getDistriTECC1(){
+        return ftc.getD1();
     }
+    public Distribuicao getDistriTECC2(){
+        return ftc.getD2();
+    }
+
+    
     public boolean ehConstante(){
         return ftc.getConst();
     }
 
-    public double getTEC2() {
-        return ftc.getTECC2();
-    }
+    
 
     public Distribuicao getDistriuicaoChamadasC1() {
         return fdc1.getDistribuicao();
@@ -294,6 +296,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         //verificar se todos os objetos foram instanciados para poder iniciar a bagaça
         String msg = "";
+        ocupa1.clear();
+        ocupa2.clear();
+        tempo.clear();
 
         try {/*
              if (fdc1 == null || !fdc1.estaDefinido() || fdc2 == null || !fdc2.estaDefinido()) {
@@ -365,9 +370,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
 
             guia.setVisible(true);
         }
-        ocupa1.clear();
-        ocupa2.clear();
-        tempo.clear();
+        
             
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -496,9 +499,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements Observer {
         if(!execucaoSimulacao){
            guia.setVisible(true);
         }
-        ocupa1.clear();
-        ocupa2.clear();
-        tempo.clear();
+        
 
     }
 

@@ -85,12 +85,14 @@ public class MainComInterface {
 
         fachada.definirNumeroCanaisCelula(c1, numeroCanaisC1);
         fachada.definirNumeroCanaisCelula(c2, numeroCanaisC2);
+        fachada.definirTempoEntreChegadas(c1, new GeradorVariavelAleatoria(jp.getDistriTECC1()));
+        fachada.definirTempoEntreChegadas(c2, new GeradorVariavelAleatoria(jp.getDistriTECC2()));
         if (jp.ehConstante()) {
-            fachada.definirTempoEntreChegadas(c1, new GeradorVariavelAleatoria(new Constante(jp.getTEC1())));
-            fachada.definirTempoEntreChegadas(c2, new GeradorVariavelAleatoria(new Constante(jp.getTEC2())));
+            //fachada.definirTempoEntreChegadas(c1, new GeradorVariavelAleatoria(new Constante(jp.getTEC1())));
+            //fachada.definirTempoEntreChegadas(c2, new GeradorVariavelAleatoria(new Constante(jp.getTEC2())));
         } else {
-            fachada.definirTempoEntreChegadas(c1, new GeradorVariavelAleatoria(new Exponencial(jp.getTEC1())));
-            fachada.definirTempoEntreChegadas(c2, new GeradorVariavelAleatoria(new Exponencial(jp.getTEC2())));
+            //fachada.definirTempoEntreChegadas(c1, new GeradorVariavelAleatoria(new Exponencial(jp.getTEC1())));
+            //fachada.definirTempoEntreChegadas(c2, new GeradorVariavelAleatoria(new Exponencial(jp.getTEC2())));
 
         }
         //fachada.definirTempoEntreChegadas(c1, new GeradorVariavelAleatoria(new Exponencial(100)));
